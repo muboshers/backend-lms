@@ -1,0 +1,23 @@
+name: Endpoints
+endpoints:
+  - uri: /
+    httpMethods:
+      - GET
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: {}
+    queryParameters: {}
+    bodyParameters: {}
+    responses:
+      - status: 200
+        description: ''
+        headers:
+          content-type: application/json; charset=utf-8
+        content: |-
+          {
+              "message": "Developing this application"
+          }
+    responseFields: {}
