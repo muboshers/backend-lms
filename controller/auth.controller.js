@@ -9,12 +9,14 @@ const { generateToken } = require("../utils/token");
 
 const LoginController = async (req, res) => {
   try {
-    const { login, is_teacher } = req.body;
+    const { is_teacher } = req.body;
     if (is_teacher) {
-      const teacher = await teacherModel.findOne({ login }).populate({
-        path: "teaching_center_id",
-        select: ["name", "address", "logo", "location"],
-      });
+      const teacher = await teacherModel
+        .findOne({ login: req.body.login })
+        .populate({
+          path: "teaching_center_id",
+          select: ["name", "address", "logo", "location"],
+        });
 
       if (!teacher)
         return res.status(400).json({ message: "Teacher not found!" });
@@ -46,9 +48,10 @@ const LoginController = async (req, res) => {
     }
 
     const teaching_center = await teachingCenterModel
-      .findOne({ login })
+      .findOne({ login: req.body.login })
       .populate({
         path: "logo",
+        select: ["url"],
       });
 
     if (!teaching_center)
@@ -69,7 +72,7 @@ const LoginController = async (req, res) => {
       role: ROLES.DIRECTOR,
     });
 
-    const { password, ...other } = teaching_center._doc;
+    const { password, login, ...other } = teaching_center._doc;
 
     res.status(200).json({
       success: true,
