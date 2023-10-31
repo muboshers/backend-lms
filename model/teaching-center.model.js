@@ -10,6 +10,7 @@ const teachingCenterSchema = mongoose.Schema(
     name: String,
     address: String,
     location: String,
+    phone_number: String,
     logo: {
       type: mongoose.Schema.Types.ObjectId,
       default: null,

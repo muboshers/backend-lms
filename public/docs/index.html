@@ -149,7 +149,7 @@ content-type: application/json; charset=utf-8 </code></pre>
  
 <!-- If response is a JSON string, prettify it. Otherwise, just print it -->
 <code class="language-json">{
-    "message": "Developing this application"
+    "message": "Developing this app"
 }</code>
  </pre>
 
@@ -202,6 +202,279 @@ content-type: application/json; charset=utf-8 </code></pre>
 
 
 
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Endpoints-POST-v1-api-teaching-center-create">POST /v1/api/teaching-center/create</h2>
+
+<p>
+
+</p>
+
+
+
+<span id="example-requests-POST-v1-api-teaching-center-create">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request POST \
+    "http://localhost:5000/v1/api/teaching-center/create"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:5000/v1/api/teaching-center/create"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-POST-v1-api-teaching-center-create">
+
+</span>
+<span id="execution-results-POST-v1-api-teaching-center-create" hidden>
+    <blockquote>Received response<span id="execution-response-status-POST-v1-api-teaching-center-create"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POST-v1-api-teaching-center-create"></code></pre>
+</span>
+<span id="execution-error-POST-v1-api-teaching-center-create" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POST-v1-api-teaching-center-create"></code></pre>
+</span>
+
+<form id="form-POST-v1-api-teaching-center-create"
+      data-method="POST"
+      data-path="/v1/api/teaching-center/create"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POST-v1-api-teaching-center-create', this);">
+<h3>
+    Request&nbsp;
+    
+    <button
+            type="button"
+            style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-tryout-POST-v1-api-teaching-center-create"
+            onclick="tryItOut('POST-v1-api-teaching-center-create');">Try it out ⚡</button>
+    <button
+            type="button"
+            style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-canceltryout-POST-v1-api-teaching-center-create"
+            onclick="cancelTryOut('POST-v1-api-teaching-center-create');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button
+            type="submit"
+            style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-executetryout-POST-v1-api-teaching-center-create" hidden>Send Request 💥</button>
+    
+</h3>
+
+<p>
+    <small class="badge badge-black">POST</small>
+
+
+    <b><code>/v1/api/teaching-center/create</code></b>
+</p>
+
+
+
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Endpoints-PATCH-v1-api-teaching-center-update-id">PATCH /v1/api/teaching-center/update/:id</h2>
+
+<p>
+
+</p>
+
+
+
+<span id="example-requests-PATCH-v1-api-teaching-center-update--id">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request PATCH \
+    "http://localhost:5000/v1/api/teaching-center/update/quas"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data '{
+    "password": "corporis",
+    "image_id": "a"
+}'
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:5000/v1/api/teaching-center/update/quas"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+const body = {
+    "password": "corporis",
+    "image_id": "a"
+}
+
+fetch(url, {
+    method: "PATCH",
+    headers: headers,
+    body: JSON.stringify(body),
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-PATCH-v1-api-teaching-center-update--id">
+
+</span>
+<span id="execution-results-PATCH-v1-api-teaching-center-update--id" hidden>
+    <blockquote>Received response<span id="execution-response-status-PATCH-v1-api-teaching-center-update--id"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-PATCH-v1-api-teaching-center-update--id"></code></pre>
+</span>
+<span id="execution-error-PATCH-v1-api-teaching-center-update--id" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCH-v1-api-teaching-center-update--id"></code></pre>
+</span>
+
+<form id="form-PATCH-v1-api-teaching-center-update--id"
+      data-method="PATCH"
+      data-path="/v1/api/teaching-center/update/:id"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCH-v1-api-teaching-center-update--id', this);">
+<h3>
+    Request&nbsp;
+    
+    <button
+            type="button"
+            style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-tryout-PATCH-v1-api-teaching-center-update--id"
+            onclick="tryItOut('PATCH-v1-api-teaching-center-update--id');">Try it out ⚡</button>
+    <button
+            type="button"
+            style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-canceltryout-PATCH-v1-api-teaching-center-update--id"
+            onclick="cancelTryOut('PATCH-v1-api-teaching-center-update--id');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button
+            type="submit"
+            style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-executetryout-PATCH-v1-api-teaching-center-update--id" hidden>Send Request 💥</button>
+    
+</h3>
+
+<p>
+    <small class="badge badge-purple">PATCH</small>
+
+
+    <b><code>/v1/api/teaching-center/update/:id</code></b>
+</p>
+
+
+
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+
+
+<p>
+<b><code>id</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="id"
+               data-endpoint="PATCH-v1-api-teaching-center-update--id"
+               data-component="url" required hidden>
+    
+
+<br>
+
+</p>
+
+
+
+
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+
+    
+    
+            <p>
+                <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="password"
+               data-endpoint="PATCH-v1-api-teaching-center-update--id"
+               data-component="body" required hidden>
+    
+
+<br>
+
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>image_id</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="image_id"
+               data-endpoint="PATCH-v1-api-teaching-center-update--id"
+               data-component="body" required hidden>
+    
+
+<br>
+
+            </p>
+        
 
 
 </form>

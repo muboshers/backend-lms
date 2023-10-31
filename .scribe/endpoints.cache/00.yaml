@@ -20,6 +20,51 @@ endpoints:
           content-type: application/json; charset=utf-8
         content: |-
           {
-              "message": "Developing this application"
+              "message": "Developing this app"
           }
+    responseFields: {}
+  - uri: /v1/api/teaching-center/create
+    httpMethods:
+      - POST
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: {}
+    queryParameters: {}
+    bodyParameters: {}
+    responses: []
+    responseFields: {}
+  - uri: '/v1/api/teaching-center/update/:id'
+    httpMethods:
+      - PATCH
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        example: quas
+        required: true
+        type: string
+        description: ''
+        match: ':id'
+    queryParameters: {}
+    bodyParameters:
+      password:
+        name: password
+        type: string
+        example: corporis
+        required: true
+        description: ''
+      image_id:
+        name: image_id
+        type: string
+        example: a
+        required: true
+        description: ''
+    responses: []
     responseFields: {}

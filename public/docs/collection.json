@@ -12,7 +12,7 @@
         "name": "Lms System Documentation",
         "description": "",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-        "_postman_id": "2611239e-3c00-4e1a-afc3-6bac023919da"
+        "_postman_id": "e7c9ed76-2dff-4c75-a0a7-f64c097bdc3e"
     },
     "item": [
         {
@@ -53,10 +53,77 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "{\n    \"message\": \"Developing this application\"\n}",
+                            "body": "{\n    \"message\": \"Developing this app\"\n}",
                             "name": ""
                         }
                     ]
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/teaching-center/create",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/teaching-center/create"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/teaching-center/update/:id",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/teaching-center/update/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "quas",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"password\": \"corporis\",\n    \"image_id\": \"a\"\n}"
+                        },
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
                 }
             ]
         }

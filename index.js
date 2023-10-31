@@ -2,47 +2,33 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const WebSocket = require("ws");
+
+const { TeachingCentersRouter, FilesRouter, AuthRouter } = require("./routes");
 
 const app = express();
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("./public"));
 
 const PORT = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
-  res.json({ message: "Developing this application" });
+  res.json({ message: "Developing this app" });
 });
+
+const isTestAuth = (req, res, next) => {
+  req.teachingCenterId = "653f4a4cc1a6a6e2d5a14672";
+  next();
+};
+
+app.use("/v1/api/teaching-center", isTestAuth, TeachingCentersRouter);
+app.use("/v1/api/files", isTestAuth, FilesRouter);
+app.use("/v1/api/auth", AuthRouter);
 
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("DB connected");
-    
-    const server = app.listen(PORT, () =>
-      console.log(`Server has running : ${PORT}`)
-    );
-
-    // Create WebSocket server
-    const wss = new WebSocket.Server({ server });
-
-    // WebSocket connection handler
-    wss.on("connection", (ws) => {
-      console.log("WebSocket client connected");
-
-      // WebSocket message received
-      ws.on("message", (message) => {
-        console.log("Received message:", message);
-
-        // Echo the message back to the client
-        ws.send(`Echo: ${message}`);
-      });
-
-      // WebSocket connection closed
-      ws.on("close", () => {
-        console.log("WebSocket client disconnected");
-      });
-    });
+    app.listen(PORT, () => console.log(`Server has running : ${PORT}`));
   })
   .catch((err) => console.log(err));
