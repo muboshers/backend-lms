@@ -12,7 +12,7 @@
         "name": "Lms System Documentation",
         "description": "",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-        "_postman_id": "e7c9ed76-2dff-4c75-a0a7-f64c097bdc3e"
+        "_postman_id": "602b2a85-6987-438a-8df1-9235d75ffb8d"
     },
     "item": [
         {
@@ -98,7 +98,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quas",
+                                    "value": "numquam",
                                     "description": ""
                                 }
                             ]
@@ -116,8 +116,259 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"password\": \"corporis\",\n    \"image_id\": \"a\"\n}"
+                            "raw": "{\n    \"password\": \"sit\",\n    \"login\": \"provident\",\n    \"image_id\": \"voluptas\"\n}"
                         },
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/teaching-center/delete/:id",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/teaching-center/delete/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "provident",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/teaching-center/list",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/teaching-center/list"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json; charset=utf-8"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\n    \"data\": [\n        {\n            \"_id\": \"653f4a4cc1a6a6e2d5a14672\",\n            \"branch\": [],\n            \"name\": \"LSL\",\n            \"address\": \"Boburshoh ko'chasi namangan\",\n            \"location\": \"Namangan shahar\",\n            \"logo\": {\n                \"_id\": \"653f98c459eaff2a3f231ba5\",\n                \"url\": \"https://firebasestorage.googleapis.com/v0/b/lms-system-1e155.appspot.com/o/files%2Fpngwing.com%20-%202023-07-13T094411%201.png?alt=media&token=08f27ea0-2e88-40c1-b8da-c6771327770f\"\n            },\n            \"createdAt\": \"2023-10-30T06:16:44.752Z\",\n            \"updatedAt\": \"2023-10-30T11:55:07.483Z\"\n        },\n        {\n            \"_id\": \"65408826dd39bd560a496922\",\n            \"branch\": [],\n            \"name\": \"Science Progress Center\",\n            \"address\": \"Mikroyon\",\n            \"location\": \"Andijon\",\n            \"phone_number\": \"+998906947177\",\n            \"logo\": null,\n            \"createdAt\": \"2023-10-31T04:52:54.742Z\",\n            \"updatedAt\": \"2023-10-31T04:52:54.742Z\"\n        }\n    ],\n    \"totalPages\": 1,\n    \"currentPage\": 1\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/teaching-center/get/:id",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/teaching-center/get/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "a",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json; charset=utf-8"
+                                }
+                            ],
+                            "code": 404,
+                            "body": "{\n    \"message\": \"Invalid teaching center id\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/teaching-center/get-me",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/teaching-center/get-me"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json; charset=utf-8"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\n    \"_id\": \"653f4a4cc1a6a6e2d5a14672\",\n    \"branch\": [],\n    \"name\": \"LSL\",\n    \"address\": \"Boburshoh ko'chasi namangan\",\n    \"location\": \"Namangan shahar\",\n    \"logo\": {\n        \"_id\": \"653f98c459eaff2a3f231ba5\",\n        \"url\": \"https://firebasestorage.googleapis.com/v0/b/lms-system-1e155.appspot.com/o/files%2Fpngwing.com%20-%202023-07-13T094411%201.png?alt=media&token=08f27ea0-2e88-40c1-b8da-c6771327770f\"\n    },\n    \"createdAt\": \"2023-10-30T06:16:44.752Z\",\n    \"updatedAt\": \"2023-10-30T11:55:07.483Z\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/files/upload",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/files/upload"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/auth/login",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/auth/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"login\": \"sunt\",\n    \"password\": \"et\"\n}"
+                        },
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/teacher",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/teacher"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
                         "description": null,
                         "auth": {
                             "type": "noauth"

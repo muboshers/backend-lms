@@ -10,7 +10,7 @@ const teacherSchema = mongoose.Schema(
     degree: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "degrees",
-      default: "",
+      default: [],
     },
     teaching_center_id: {
       type: mongoose.Schema.Types.ObjectId,

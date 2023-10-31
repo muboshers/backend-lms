@@ -14,8 +14,15 @@ const LoginController = async (req, res) => {
       const teacher = await teacherModel
         .findOne({ login: req.body.login })
         .populate({
+          path: "degree",
+        })
+        .populate({
           path: "teaching_center_id",
           select: ["name", "address", "logo", "location"],
+          populate: {
+            path: "logo",
+            select: ["url"],
+          },
         });
 
       if (!teacher)
@@ -34,6 +41,7 @@ const LoginController = async (req, res) => {
         name: teacher.name,
         age: teacher?.age,
         role: ROLES.TEACHER,
+        teaching_center_id: teacher.teaching_center_id._id,
       });
 
       const { password, ...other } = teacher._doc;

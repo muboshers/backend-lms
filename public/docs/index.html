@@ -62,7 +62,7 @@
         </ul>
     
         <ul class="toc-footer" id="last-updated">
-            <li>Last updated: October 30, 2023</li>
+            <li>Last updated: October 31, 2023</li>
         </ul>
 </div>
 <div class="page-wrapper">
@@ -324,19 +324,20 @@ fetch(url, {
 
 
 <pre><code class="bash language-bash">curl --request PATCH \
-    "http://localhost:5000/v1/api/teaching-center/update/quas"  \
+    "http://localhost:5000/v1/api/teaching-center/update/numquam"  \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data '{
-    "password": "corporis",
-    "image_id": "a"
+    "password": "sit",
+    "login": "provident",
+    "image_id": "voluptas"
 }'
 </code></pre>
 
 
 
 <pre><code class="javascript language-javascript">const url = new URL(
-    "http://localhost:5000/v1/api/teaching-center/update/quas"
+    "http://localhost:5000/v1/api/teaching-center/update/numquam"
 );
 
 const headers = {
@@ -345,8 +346,9 @@ const headers = {
 };
 
 const body = {
-    "password": "corporis",
-    "image_id": "a"
+    "password": "sit",
+    "login": "provident",
+    "image_id": "voluptas"
 }
 
 fetch(url, {
@@ -459,6 +461,26 @@ fetch(url, {
     
     
             <p>
+                <b><code>login</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="login"
+               data-endpoint="PATCH-v1-api-teaching-center-update--id"
+               data-component="body" required hidden>
+    
+
+<br>
+
+            </p>
+        
+
+    
+    
+            <p>
                 <b><code>image_id</code></b>&nbsp;&nbsp;<small>string</small>
 
 
@@ -475,6 +497,900 @@ fetch(url, {
 
             </p>
         
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Endpoints-DELETE-v1-api-teaching-center-delete-id">DELETE /v1/api/teaching-center/delete/:id</h2>
+
+<p>
+
+</p>
+
+
+
+<span id="example-requests-DELETE-v1-api-teaching-center-delete--id">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request DELETE \
+    "http://localhost:5000/v1/api/teaching-center/delete/provident"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:5000/v1/api/teaching-center/delete/provident"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-DELETE-v1-api-teaching-center-delete--id">
+
+</span>
+<span id="execution-results-DELETE-v1-api-teaching-center-delete--id" hidden>
+    <blockquote>Received response<span id="execution-response-status-DELETE-v1-api-teaching-center-delete--id"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-DELETE-v1-api-teaching-center-delete--id"></code></pre>
+</span>
+<span id="execution-error-DELETE-v1-api-teaching-center-delete--id" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETE-v1-api-teaching-center-delete--id"></code></pre>
+</span>
+
+<form id="form-DELETE-v1-api-teaching-center-delete--id"
+      data-method="DELETE"
+      data-path="/v1/api/teaching-center/delete/:id"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETE-v1-api-teaching-center-delete--id', this);">
+<h3>
+    Request&nbsp;
+    
+    <button
+            type="button"
+            style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-tryout-DELETE-v1-api-teaching-center-delete--id"
+            onclick="tryItOut('DELETE-v1-api-teaching-center-delete--id');">Try it out ⚡</button>
+    <button
+            type="button"
+            style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-canceltryout-DELETE-v1-api-teaching-center-delete--id"
+            onclick="cancelTryOut('DELETE-v1-api-teaching-center-delete--id');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button
+            type="submit"
+            style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-executetryout-DELETE-v1-api-teaching-center-delete--id" hidden>Send Request 💥</button>
+    
+</h3>
+
+<p>
+    <small class="badge badge-red">DELETE</small>
+
+
+    <b><code>/v1/api/teaching-center/delete/:id</code></b>
+</p>
+
+
+
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+
+
+<p>
+<b><code>id</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="id"
+               data-endpoint="DELETE-v1-api-teaching-center-delete--id"
+               data-component="url" required hidden>
+    
+
+<br>
+
+</p>
+
+
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Endpoints-GET-v1-api-teaching-center-list">GET /v1/api/teaching-center/list</h2>
+
+<p>
+
+</p>
+
+
+
+<span id="example-requests-GET-v1-api-teaching-center-list">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request GET \
+    --get "http://localhost:5000/v1/api/teaching-center/list"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:5000/v1/api/teaching-center/list"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-GET-v1-api-teaching-center-list">
+
+
+<blockquote>Example response (200):</blockquote>
+
+
+<details class="annotation">
+    <summary>
+        <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+    </summary>
+    <pre><code class="language-http">
+content-type: application/json; charset=utf-8 </code></pre>
+</details> 
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "data": [
+        {
+            "_id": "653f4a4cc1a6a6e2d5a14672",
+            "branch": [],
+            "name": "LSL",
+            "address": "Boburshoh ko'chasi namangan",
+            "location": "Namangan shahar",
+            "logo": {
+                "_id": "653f98c459eaff2a3f231ba5",
+                "url": "https://firebasestorage.googleapis.com/v0/b/lms-system-1e155.appspot.com/o/files%2Fpngwing.com%20-%202023-07-13T094411%201.png?alt=media&token=08f27ea0-2e88-40c1-b8da-c6771327770f"
+            },
+            "createdAt": "2023-10-30T06:16:44.752Z",
+            "updatedAt": "2023-10-30T11:55:07.483Z"
+        },
+        {
+            "_id": "65408826dd39bd560a496922",
+            "branch": [],
+            "name": "Science Progress Center",
+            "address": "Mikroyon",
+            "location": "Andijon",
+            "phone_number": "+998906947177",
+            "logo": null,
+            "createdAt": "2023-10-31T04:52:54.742Z",
+            "updatedAt": "2023-10-31T04:52:54.742Z"
+        }
+    ],
+    "totalPages": 1,
+    "currentPage": 1
+}</code>
+ </pre>
+
+
+</span>
+<span id="execution-results-GET-v1-api-teaching-center-list" hidden>
+    <blockquote>Received response<span id="execution-response-status-GET-v1-api-teaching-center-list"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GET-v1-api-teaching-center-list"></code></pre>
+</span>
+<span id="execution-error-GET-v1-api-teaching-center-list" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GET-v1-api-teaching-center-list"></code></pre>
+</span>
+
+<form id="form-GET-v1-api-teaching-center-list"
+      data-method="GET"
+      data-path="/v1/api/teaching-center/list"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GET-v1-api-teaching-center-list', this);">
+<h3>
+    Request&nbsp;
+    
+    <button
+            type="button"
+            style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-tryout-GET-v1-api-teaching-center-list"
+            onclick="tryItOut('GET-v1-api-teaching-center-list');">Try it out ⚡</button>
+    <button
+            type="button"
+            style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-canceltryout-GET-v1-api-teaching-center-list"
+            onclick="cancelTryOut('GET-v1-api-teaching-center-list');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button
+            type="submit"
+            style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-executetryout-GET-v1-api-teaching-center-list" hidden>Send Request 💥</button>
+    
+</h3>
+
+<p>
+    <small class="badge badge-green">GET</small>
+
+
+    <b><code>/v1/api/teaching-center/list</code></b>
+</p>
+
+
+
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Endpoints-GET-v1-api-teaching-center-get-id">GET /v1/api/teaching-center/get/:id</h2>
+
+<p>
+
+</p>
+
+
+
+<span id="example-requests-GET-v1-api-teaching-center-get--id">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request GET \
+    --get "http://localhost:5000/v1/api/teaching-center/get/a"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:5000/v1/api/teaching-center/get/a"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-GET-v1-api-teaching-center-get--id">
+
+
+<blockquote>Example response (404):</blockquote>
+
+
+<details class="annotation">
+    <summary>
+        <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+    </summary>
+    <pre><code class="language-http">
+content-type: application/json; charset=utf-8 </code></pre>
+</details> 
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "message": "Invalid teaching center id"
+}</code>
+ </pre>
+
+
+</span>
+<span id="execution-results-GET-v1-api-teaching-center-get--id" hidden>
+    <blockquote>Received response<span id="execution-response-status-GET-v1-api-teaching-center-get--id"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GET-v1-api-teaching-center-get--id"></code></pre>
+</span>
+<span id="execution-error-GET-v1-api-teaching-center-get--id" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GET-v1-api-teaching-center-get--id"></code></pre>
+</span>
+
+<form id="form-GET-v1-api-teaching-center-get--id"
+      data-method="GET"
+      data-path="/v1/api/teaching-center/get/:id"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GET-v1-api-teaching-center-get--id', this);">
+<h3>
+    Request&nbsp;
+    
+    <button
+            type="button"
+            style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-tryout-GET-v1-api-teaching-center-get--id"
+            onclick="tryItOut('GET-v1-api-teaching-center-get--id');">Try it out ⚡</button>
+    <button
+            type="button"
+            style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-canceltryout-GET-v1-api-teaching-center-get--id"
+            onclick="cancelTryOut('GET-v1-api-teaching-center-get--id');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button
+            type="submit"
+            style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-executetryout-GET-v1-api-teaching-center-get--id" hidden>Send Request 💥</button>
+    
+</h3>
+
+<p>
+    <small class="badge badge-green">GET</small>
+
+
+    <b><code>/v1/api/teaching-center/get/:id</code></b>
+</p>
+
+
+
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+
+
+<p>
+<b><code>id</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="id"
+               data-endpoint="GET-v1-api-teaching-center-get--id"
+               data-component="url" required hidden>
+    
+
+<br>
+
+</p>
+
+
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Endpoints-GET-v1-api-teaching-center-get-me">GET /v1/api/teaching-center/get-me</h2>
+
+<p>
+
+</p>
+
+
+
+<span id="example-requests-GET-v1-api-teaching-center-get-me">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request GET \
+    --get "http://localhost:5000/v1/api/teaching-center/get-me"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:5000/v1/api/teaching-center/get-me"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-GET-v1-api-teaching-center-get-me">
+
+
+<blockquote>Example response (200):</blockquote>
+
+
+<details class="annotation">
+    <summary>
+        <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+    </summary>
+    <pre><code class="language-http">
+content-type: application/json; charset=utf-8 </code></pre>
+</details> 
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "_id": "653f4a4cc1a6a6e2d5a14672",
+    "branch": [],
+    "name": "LSL",
+    "address": "Boburshoh ko'chasi namangan",
+    "location": "Namangan shahar",
+    "logo": {
+        "_id": "653f98c459eaff2a3f231ba5",
+        "url": "https://firebasestorage.googleapis.com/v0/b/lms-system-1e155.appspot.com/o/files%2Fpngwing.com%20-%202023-07-13T094411%201.png?alt=media&token=08f27ea0-2e88-40c1-b8da-c6771327770f"
+    },
+    "createdAt": "2023-10-30T06:16:44.752Z",
+    "updatedAt": "2023-10-30T11:55:07.483Z"
+}</code>
+ </pre>
+
+
+</span>
+<span id="execution-results-GET-v1-api-teaching-center-get-me" hidden>
+    <blockquote>Received response<span id="execution-response-status-GET-v1-api-teaching-center-get-me"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GET-v1-api-teaching-center-get-me"></code></pre>
+</span>
+<span id="execution-error-GET-v1-api-teaching-center-get-me" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GET-v1-api-teaching-center-get-me"></code></pre>
+</span>
+
+<form id="form-GET-v1-api-teaching-center-get-me"
+      data-method="GET"
+      data-path="/v1/api/teaching-center/get-me"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GET-v1-api-teaching-center-get-me', this);">
+<h3>
+    Request&nbsp;
+    
+    <button
+            type="button"
+            style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-tryout-GET-v1-api-teaching-center-get-me"
+            onclick="tryItOut('GET-v1-api-teaching-center-get-me');">Try it out ⚡</button>
+    <button
+            type="button"
+            style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-canceltryout-GET-v1-api-teaching-center-get-me"
+            onclick="cancelTryOut('GET-v1-api-teaching-center-get-me');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button
+            type="submit"
+            style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-executetryout-GET-v1-api-teaching-center-get-me" hidden>Send Request 💥</button>
+    
+</h3>
+
+<p>
+    <small class="badge badge-green">GET</small>
+
+
+    <b><code>/v1/api/teaching-center/get-me</code></b>
+</p>
+
+
+
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Endpoints-POST-v1-api-files-upload">POST /v1/api/files/upload</h2>
+
+<p>
+
+</p>
+
+
+
+<span id="example-requests-POST-v1-api-files-upload">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request POST \
+    "http://localhost:5000/v1/api/files/upload"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:5000/v1/api/files/upload"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-POST-v1-api-files-upload">
+
+</span>
+<span id="execution-results-POST-v1-api-files-upload" hidden>
+    <blockquote>Received response<span id="execution-response-status-POST-v1-api-files-upload"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POST-v1-api-files-upload"></code></pre>
+</span>
+<span id="execution-error-POST-v1-api-files-upload" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POST-v1-api-files-upload"></code></pre>
+</span>
+
+<form id="form-POST-v1-api-files-upload"
+      data-method="POST"
+      data-path="/v1/api/files/upload"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POST-v1-api-files-upload', this);">
+<h3>
+    Request&nbsp;
+    
+    <button
+            type="button"
+            style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-tryout-POST-v1-api-files-upload"
+            onclick="tryItOut('POST-v1-api-files-upload');">Try it out ⚡</button>
+    <button
+            type="button"
+            style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-canceltryout-POST-v1-api-files-upload"
+            onclick="cancelTryOut('POST-v1-api-files-upload');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button
+            type="submit"
+            style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-executetryout-POST-v1-api-files-upload" hidden>Send Request 💥</button>
+    
+</h3>
+
+<p>
+    <small class="badge badge-black">POST</small>
+
+
+    <b><code>/v1/api/files/upload</code></b>
+</p>
+
+
+
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Endpoints-POST-v1-api-auth-login">POST /v1/api/auth/login</h2>
+
+<p>
+
+</p>
+
+
+
+<span id="example-requests-POST-v1-api-auth-login">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request POST \
+    "http://localhost:5000/v1/api/auth/login"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data '{
+    "login": "sunt",
+    "password": "et"
+}'
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:5000/v1/api/auth/login"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+const body = {
+    "login": "sunt",
+    "password": "et"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify(body),
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-POST-v1-api-auth-login">
+
+</span>
+<span id="execution-results-POST-v1-api-auth-login" hidden>
+    <blockquote>Received response<span id="execution-response-status-POST-v1-api-auth-login"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POST-v1-api-auth-login"></code></pre>
+</span>
+<span id="execution-error-POST-v1-api-auth-login" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POST-v1-api-auth-login"></code></pre>
+</span>
+
+<form id="form-POST-v1-api-auth-login"
+      data-method="POST"
+      data-path="/v1/api/auth/login"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POST-v1-api-auth-login', this);">
+<h3>
+    Request&nbsp;
+    
+    <button
+            type="button"
+            style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-tryout-POST-v1-api-auth-login"
+            onclick="tryItOut('POST-v1-api-auth-login');">Try it out ⚡</button>
+    <button
+            type="button"
+            style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-canceltryout-POST-v1-api-auth-login"
+            onclick="cancelTryOut('POST-v1-api-auth-login');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button
+            type="submit"
+            style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-executetryout-POST-v1-api-auth-login" hidden>Send Request 💥</button>
+    
+</h3>
+
+<p>
+    <small class="badge badge-black">POST</small>
+
+
+    <b><code>/v1/api/auth/login</code></b>
+</p>
+
+
+
+
+
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+
+    
+    
+            <p>
+                <b><code>login</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="login"
+               data-endpoint="POST-v1-api-auth-login"
+               data-component="body" required hidden>
+    
+
+<br>
+
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="password"
+               data-endpoint="POST-v1-api-auth-login"
+               data-component="body" required hidden>
+    
+
+<br>
+
+            </p>
+        
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Endpoints-POST-v1-api-teacher">POST /v1/api/teacher</h2>
+
+<p>
+
+</p>
+
+
+
+<span id="example-requests-POST-v1-api-teacher">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request POST \
+    "http://localhost:5000/v1/api/teacher"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:5000/v1/api/teacher"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-POST-v1-api-teacher">
+
+</span>
+<span id="execution-results-POST-v1-api-teacher" hidden>
+    <blockquote>Received response<span id="execution-response-status-POST-v1-api-teacher"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POST-v1-api-teacher"></code></pre>
+</span>
+<span id="execution-error-POST-v1-api-teacher" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POST-v1-api-teacher"></code></pre>
+</span>
+
+<form id="form-POST-v1-api-teacher"
+      data-method="POST"
+      data-path="/v1/api/teacher"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POST-v1-api-teacher', this);">
+<h3>
+    Request&nbsp;
+    
+    <button
+            type="button"
+            style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-tryout-POST-v1-api-teacher"
+            onclick="tryItOut('POST-v1-api-teacher');">Try it out ⚡</button>
+    <button
+            type="button"
+            style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-canceltryout-POST-v1-api-teacher"
+            onclick="cancelTryOut('POST-v1-api-teacher');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button
+            type="submit"
+            style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-executetryout-POST-v1-api-teacher" hidden>Send Request 💥</button>
+    
+</h3>
+
+<p>
+    <small class="badge badge-black">POST</small>
+
+
+    <b><code>/v1/api/teacher</code></b>
+</p>
+
+
+
 
 
 </form>

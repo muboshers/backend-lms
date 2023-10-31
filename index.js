@@ -3,7 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 
-const { TeachingCentersRouter, FilesRouter, AuthRouter } = require("./routes");
+const {
+  TeachingCentersRouter,
+  FilesRouter,
+  AuthRouter,
+  TeacherRouter,
+} = require("./routes");
+const { TEACHING_CENTER_OR_TEACHERS } = require("./middleware");
 
 const app = express();
 
@@ -24,6 +30,7 @@ const isTestAuth = (req, res, next) => {
 app.use("/v1/api/teaching-center", isTestAuth, TeachingCentersRouter);
 app.use("/v1/api/files", isTestAuth, FilesRouter);
 app.use("/v1/api/auth", AuthRouter);
+app.use("/v1/api/teacher", TEACHING_CENTER_OR_TEACHERS, TeacherRouter);
 
 mongoose
   .connect(process.env.MONGO_URL)

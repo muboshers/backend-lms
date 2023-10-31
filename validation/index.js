@@ -1,11 +1,11 @@
 const { authSchema } = require("./auth.validation");
 const {
-  createTeachingCenterSchema,
+  createTeachingCenterAdminSchema,
   updateTeachingCenterAdminSchema,
 } = require("./teaching-center.validation");
 
 module.exports = {
-  createTeachingCenterSchema,
+  createTeachingCenterAdminSchema,
   updateTeachingCenterAdminSchema,
   authSchema,
 };

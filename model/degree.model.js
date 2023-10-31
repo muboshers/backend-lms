@@ -13,6 +13,7 @@ const degreesSchema = mongoose.Schema(
     image: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "file",
+      default: null,
     },
     is_deleted: {
       type: Boolean,
