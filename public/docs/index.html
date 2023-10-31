@@ -324,20 +324,20 @@ fetch(url, {
 
 
 <pre><code class="bash language-bash">curl --request PATCH \
-    "http://localhost:5000/v1/api/teaching-center/update/numquam"  \
+    "http://localhost:5000/v1/api/teaching-center/update/quia"  \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data '{
-    "password": "sit",
-    "login": "provident",
-    "image_id": "voluptas"
+    "password": "nihil",
+    "login": "vitae",
+    "image_id": "aut"
 }'
 </code></pre>
 
 
 
 <pre><code class="javascript language-javascript">const url = new URL(
-    "http://localhost:5000/v1/api/teaching-center/update/numquam"
+    "http://localhost:5000/v1/api/teaching-center/update/quia"
 );
 
 const headers = {
@@ -346,9 +346,9 @@ const headers = {
 };
 
 const body = {
-    "password": "sit",
-    "login": "provident",
-    "image_id": "voluptas"
+    "password": "nihil",
+    "login": "vitae",
+    "image_id": "aut"
 }
 
 fetch(url, {
@@ -519,7 +519,7 @@ fetch(url, {
 
 
 <pre><code class="bash language-bash">curl --request DELETE \
-    "http://localhost:5000/v1/api/teaching-center/delete/provident"  \
+    "http://localhost:5000/v1/api/teaching-center/delete/nulla"  \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"
 </code></pre>
@@ -527,7 +527,7 @@ fetch(url, {
 
 
 <pre><code class="javascript language-javascript">const url = new URL(
-    "http://localhost:5000/v1/api/teaching-center/delete/provident"
+    "http://localhost:5000/v1/api/teaching-center/delete/nulla"
 );
 
 const headers = {
@@ -788,7 +788,7 @@ content-type: application/json; charset=utf-8 </code></pre>
 
 
 <pre><code class="bash language-bash">curl --request GET \
-    --get "http://localhost:5000/v1/api/teaching-center/get/a"  \
+    --get "http://localhost:5000/v1/api/teaching-center/get/possimus"  \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"
 </code></pre>
@@ -796,7 +796,7 @@ content-type: application/json; charset=utf-8 </code></pre>
 
 
 <pre><code class="javascript language-javascript">const url = new URL(
-    "http://localhost:5000/v1/api/teaching-center/get/a"
+    "http://localhost:5000/v1/api/teaching-center/get/possimus"
 );
 
 const headers = {
@@ -1165,7 +1165,7 @@ fetch(url, {
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data '{
-    "login": "sunt",
+    "login": "sed",
     "password": "et"
 }'
 </code></pre>
@@ -1182,7 +1182,7 @@ const headers = {
 };
 
 const body = {
-    "login": "sunt",
+    "login": "sed",
     "password": "et"
 }
 
@@ -1299,7 +1299,7 @@ fetch(url, {
 
     
         
-<h2 id="Endpoints-POST-v1-api-teacher">POST /v1/api/teacher</h2>
+<h2 id="Endpoints-POST-v1-api-teacher-create">POST /v1/api/teacher/create</h2>
 
 <p>
 
@@ -1307,13 +1307,13 @@ fetch(url, {
 
 
 
-<span id="example-requests-POST-v1-api-teacher">
+<span id="example-requests-POST-v1-api-teacher-create">
 <blockquote>Example request:</blockquote>
 
 
 
 <pre><code class="bash language-bash">curl --request POST \
-    "http://localhost:5000/v1/api/teacher"  \
+    "http://localhost:5000/v1/api/teacher/create"  \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"
 </code></pre>
@@ -1321,7 +1321,7 @@ fetch(url, {
 
 
 <pre><code class="javascript language-javascript">const url = new URL(
-    "http://localhost:5000/v1/api/teacher"
+    "http://localhost:5000/v1/api/teacher/create"
 );
 
 const headers = {
@@ -1341,44 +1341,44 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-POST-v1-api-teacher">
+<span id="example-responses-POST-v1-api-teacher-create">
 
 </span>
-<span id="execution-results-POST-v1-api-teacher" hidden>
-    <blockquote>Received response<span id="execution-response-status-POST-v1-api-teacher"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-POST-v1-api-teacher"></code></pre>
+<span id="execution-results-POST-v1-api-teacher-create" hidden>
+    <blockquote>Received response<span id="execution-response-status-POST-v1-api-teacher-create"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POST-v1-api-teacher-create"></code></pre>
 </span>
-<span id="execution-error-POST-v1-api-teacher" hidden>
+<span id="execution-error-POST-v1-api-teacher-create" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POST-v1-api-teacher"></code></pre>
+    <pre><code id="execution-error-message-POST-v1-api-teacher-create"></code></pre>
 </span>
 
-<form id="form-POST-v1-api-teacher"
+<form id="form-POST-v1-api-teacher-create"
       data-method="POST"
-      data-path="/v1/api/teacher"
+      data-path="/v1/api/teacher/create"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;}'
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POST-v1-api-teacher', this);">
+      onsubmit="event.preventDefault(); executeTryOut('POST-v1-api-teacher-create', this);">
 <h3>
     Request&nbsp;
     
     <button
             type="button"
             style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-            id="btn-tryout-POST-v1-api-teacher"
-            onclick="tryItOut('POST-v1-api-teacher');">Try it out ⚡</button>
+            id="btn-tryout-POST-v1-api-teacher-create"
+            onclick="tryItOut('POST-v1-api-teacher-create');">Try it out ⚡</button>
     <button
             type="button"
             style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-            id="btn-canceltryout-POST-v1-api-teacher"
-            onclick="cancelTryOut('POST-v1-api-teacher');" hidden>Cancel</button>&nbsp;&nbsp;
+            id="btn-canceltryout-POST-v1-api-teacher-create"
+            onclick="cancelTryOut('POST-v1-api-teacher-create');" hidden>Cancel</button>&nbsp;&nbsp;
     <button
             type="submit"
             style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-            id="btn-executetryout-POST-v1-api-teacher" hidden>Send Request 💥</button>
+            id="btn-executetryout-POST-v1-api-teacher-create" hidden>Send Request 💥</button>
     
 </h3>
 
@@ -1386,11 +1386,162 @@ fetch(url, {
     <small class="badge badge-black">POST</small>
 
 
-    <b><code>/v1/api/teacher</code></b>
+    <b><code>/v1/api/teacher/create</code></b>
 </p>
 
 
 
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Endpoints-PATCH-v1-api-teacher-update-id">PATCH /v1/api/teacher/update/:id</h2>
+
+<p>
+
+</p>
+
+
+
+<span id="example-requests-PATCH-v1-api-teacher-update--id">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request PATCH \
+    "http://localhost:5000/v1/api/teacher/update/repudiandae"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data '{
+    "password": "est"
+}'
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:5000/v1/api/teacher/update/repudiandae"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+const body = {
+    "password": "est"
+}
+
+fetch(url, {
+    method: "PATCH",
+    headers: headers,
+    body: JSON.stringify(body),
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-PATCH-v1-api-teacher-update--id">
+
+</span>
+<span id="execution-results-PATCH-v1-api-teacher-update--id" hidden>
+    <blockquote>Received response<span id="execution-response-status-PATCH-v1-api-teacher-update--id"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-PATCH-v1-api-teacher-update--id"></code></pre>
+</span>
+<span id="execution-error-PATCH-v1-api-teacher-update--id" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCH-v1-api-teacher-update--id"></code></pre>
+</span>
+
+<form id="form-PATCH-v1-api-teacher-update--id"
+      data-method="PATCH"
+      data-path="/v1/api/teacher/update/:id"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCH-v1-api-teacher-update--id', this);">
+<h3>
+    Request&nbsp;
+    
+    <button
+            type="button"
+            style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-tryout-PATCH-v1-api-teacher-update--id"
+            onclick="tryItOut('PATCH-v1-api-teacher-update--id');">Try it out ⚡</button>
+    <button
+            type="button"
+            style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-canceltryout-PATCH-v1-api-teacher-update--id"
+            onclick="cancelTryOut('PATCH-v1-api-teacher-update--id');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button
+            type="submit"
+            style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+            id="btn-executetryout-PATCH-v1-api-teacher-update--id" hidden>Send Request 💥</button>
+    
+</h3>
+
+<p>
+    <small class="badge badge-purple">PATCH</small>
+
+
+    <b><code>/v1/api/teacher/update/:id</code></b>
+</p>
+
+
+
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+
+
+<p>
+<b><code>id</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="id"
+               data-endpoint="PATCH-v1-api-teacher-update--id"
+               data-component="url" required hidden>
+    
+
+<br>
+
+</p>
+
+
+
+
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+
+    
+    
+            <p>
+                <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="password"
+               data-endpoint="PATCH-v1-api-teacher-update--id"
+               data-component="body" required hidden>
+    
+
+<br>
+
+            </p>
+        
 
 
 </form>

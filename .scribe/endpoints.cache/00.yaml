@@ -47,7 +47,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: numquam
+        example: quia
         required: true
         type: string
         description: ''
@@ -57,19 +57,19 @@ endpoints:
       password:
         name: password
         type: string
-        example: sit
+        example: nihil
         required: true
         description: ''
       login:
         name: login
         type: string
-        example: provident
+        example: vitae
         required: true
         description: ''
       image_id:
         name: image_id
         type: string
-        example: voluptas
+        example: aut
         required: true
         description: ''
     responses: []
@@ -85,7 +85,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: provident
+        example: nulla
         required: true
         type: string
         description: ''
@@ -153,7 +153,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: a
+        example: possimus
         required: true
         type: string
         description: ''
@@ -228,7 +228,7 @@ endpoints:
       login:
         name: login
         type: string
-        example: sunt
+        example: sed
         required: true
         description: ''
       password:
@@ -239,7 +239,7 @@ endpoints:
         description: ''
     responses: []
     responseFields: {}
-  - uri: /v1/api/teacher
+  - uri: /v1/api/teacher/create
     httpMethods:
       - POST
     metadata:
@@ -250,5 +250,31 @@ endpoints:
     urlParameters: {}
     queryParameters: {}
     bodyParameters: {}
+    responses: []
+    responseFields: {}
+  - uri: '/v1/api/teacher/update/:id'
+    httpMethods:
+      - PATCH
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        example: repudiandae
+        required: true
+        type: string
+        description: ''
+        match: ':id'
+    queryParameters: {}
+    bodyParameters:
+      password:
+        name: password
+        type: string
+        example: est
+        required: true
+        description: ''
     responses: []
     responseFields: {}

@@ -12,7 +12,7 @@
         "name": "Lms System Documentation",
         "description": "",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-        "_postman_id": "602b2a85-6987-438a-8df1-9235d75ffb8d"
+        "_postman_id": "76b91b1c-f1c9-435c-9cb5-1b0d7c8bec12"
     },
     "item": [
         {
@@ -98,7 +98,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "numquam",
+                                    "value": "quia",
                                     "description": ""
                                 }
                             ]
@@ -116,7 +116,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"password\": \"sit\",\n    \"login\": \"provident\",\n    \"image_id\": \"voluptas\"\n}"
+                            "raw": "{\n    \"password\": \"nihil\",\n    \"login\": \"vitae\",\n    \"image_id\": \"aut\"\n}"
                         },
                         "description": null,
                         "auth": {
@@ -137,7 +137,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "provident",
+                                    "value": "nulla",
                                     "description": ""
                                 }
                             ]
@@ -213,7 +213,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "a",
+                                    "value": "possimus",
                                     "description": ""
                                 }
                             ]
@@ -339,7 +339,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"login\": \"sunt\",\n    \"password\": \"et\"\n}"
+                            "raw": "{\n    \"login\": \"sed\",\n    \"password\": \"et\"\n}"
                         },
                         "description": null,
                         "auth": {
@@ -353,9 +353,9 @@
                         "url": {
                             "protocol": "http",
                             "host": "{{baseUrl}}",
-                            "path": "v1/api/teacher",
+                            "path": "v1/api/teacher/create",
                             "query": [],
-                            "raw": "http://{{baseUrl}}/v1/api/teacher"
+                            "raw": "http://{{baseUrl}}/v1/api/teacher/create"
                         },
                         "method": "POST",
                         "header": [
@@ -369,6 +369,45 @@
                             }
                         ],
                         "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/teacher/update/:id",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/teacher/update/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "repudiandae",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"password\": \"est\"\n}"
+                        },
                         "description": null,
                         "auth": {
                             "type": "noauth"
