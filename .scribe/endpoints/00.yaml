@@ -1,5 +1,26 @@
 name: Endpoints
 endpoints:
+  - uri: /
+    httpMethods:
+      - GET
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: {}
+    queryParameters: {}
+    bodyParameters: {}
+    responses:
+      - status: 200
+        description: ''
+        headers:
+          content-type: application/json; charset=utf-8
+        content: |-
+          {
+              "message": "Developing this app"
+          }
+    responseFields: {}
   - uri: /v1/api/teaching-center/create
     httpMethods:
       - POST
@@ -24,7 +45,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: hic
+        example: ab
         required: true
         type: string
         description: ''
@@ -34,19 +55,19 @@ endpoints:
       password:
         name: password
         type: string
-        example: incidunt
+        example: aliquam
         required: true
         description: ''
       login:
         name: login
         type: string
-        example: perferendis
+        example: pariatur
         required: true
         description: ''
       image_id:
         name: image_id
         type: string
-        example: et
+        example: officia
         required: true
         description: ''
     responses: []
@@ -62,7 +83,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: molestias
+        example: vero
         required: true
         type: string
         description: ''
@@ -70,6 +91,113 @@ endpoints:
     queryParameters: {}
     bodyParameters: {}
     responses: []
+    responseFields: {}
+  - uri: /v1/api/teaching-center/list
+    httpMethods:
+      - GET
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: {}
+    queryParameters: {}
+    bodyParameters: {}
+    responses:
+      - status: 200
+        description: ''
+        headers:
+          content-type: application/json; charset=utf-8
+        content: |-
+          {
+              "data": [
+                  {
+                      "_id": "653f4a4cc1a6a6e2d5a14672",
+                      "branch": [],
+                      "name": "LSL",
+                      "address": "Boburshoh ko'chasi namangan",
+                      "location": "Namangan shahar",
+                      "logo": {
+                          "_id": "653f98c459eaff2a3f231ba5",
+                          "url": "https://firebasestorage.googleapis.com/v0/b/lms-system-1e155.appspot.com/o/files%2Fpngwing.com%20-%202023-07-13T094411%201.png?alt=media&token=08f27ea0-2e88-40c1-b8da-c6771327770f"
+                      },
+                      "createdAt": "2023-10-30T06:16:44.752Z",
+                      "updatedAt": "2023-10-30T11:55:07.483Z"
+                  },
+                  {
+                      "_id": "65408826dd39bd560a496922",
+                      "branch": [],
+                      "name": "Science Progress Center",
+                      "address": "Mikroyon",
+                      "location": "Andijon",
+                      "phone_number": "+998906947177",
+                      "logo": null,
+                      "createdAt": "2023-10-31T04:52:54.742Z",
+                      "updatedAt": "2023-10-31T04:52:54.742Z"
+                  }
+              ],
+              "totalPages": 1,
+              "currentPage": 1
+          }
+    responseFields: {}
+  - uri: '/v1/api/teaching-center/get/:id'
+    httpMethods:
+      - GET
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        example: aut
+        required: true
+        type: string
+        description: ''
+        match: ':id'
+    queryParameters: {}
+    bodyParameters: {}
+    responses:
+      - status: 404
+        description: ''
+        headers:
+          content-type: application/json; charset=utf-8
+        content: |-
+          {
+              "message": "Invalid teaching center id"
+          }
+    responseFields: {}
+  - uri: /v1/api/teaching-center/get-me
+    httpMethods:
+      - GET
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: {}
+    queryParameters: {}
+    bodyParameters: {}
+    responses:
+      - status: 200
+        description: ''
+        headers:
+          content-type: application/json; charset=utf-8
+        content: |-
+          {
+              "_id": "653f4a4cc1a6a6e2d5a14672",
+              "branch": [],
+              "name": "LSL",
+              "address": "Boburshoh ko'chasi namangan",
+              "location": "Namangan shahar",
+              "logo": {
+                  "_id": "653f98c459eaff2a3f231ba5",
+                  "url": "https://firebasestorage.googleapis.com/v0/b/lms-system-1e155.appspot.com/o/files%2Fpngwing.com%20-%202023-07-13T094411%201.png?alt=media&token=08f27ea0-2e88-40c1-b8da-c6771327770f"
+              },
+              "createdAt": "2023-10-30T06:16:44.752Z",
+              "updatedAt": "2023-10-30T11:55:07.483Z"
+          }
     responseFields: {}
   - uri: /v1/api/files/upload
     httpMethods:
@@ -98,13 +226,13 @@ endpoints:
       login:
         name: login
         type: string
-        example: veniam
+        example: tempore
         required: true
         description: ''
       password:
         name: password
         type: string
-        example: et
+        example: accusamus
         required: true
         description: ''
     responses: []
@@ -133,7 +261,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: sit
+        example: fuga
         required: true
         type: string
         description: ''
@@ -143,7 +271,7 @@ endpoints:
       password:
         name: password
         type: string
-        example: rerum
+        example: voluptates
         required: true
         description: ''
     responses: []
@@ -159,7 +287,102 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: amet
+        example: ex
+        required: true
+        type: string
+        description: ''
+        match: ':id'
+    queryParameters: {}
+    bodyParameters: {}
+    responses: []
+    responseFields: {}
+  - uri: /v1/api/teacher/list
+    httpMethods:
+      - GET
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: {}
+    queryParameters: {}
+    bodyParameters: {}
+    responses:
+      - status: 500
+        description: ''
+        headers:
+          content-type: application/json; charset=utf-8
+        content: |-
+          {
+              "message": "Token not found"
+          }
+    responseFields: {}
+  - uri: /v1/api/group/create
+    httpMethods:
+      - POST
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: {}
+    queryParameters: {}
+    bodyParameters: {}
+    responses: []
+    responseFields: {}
+  - uri: '/v1/api/group/update/:id'
+    httpMethods:
+      - PATCH
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        example: voluptas
+        required: true
+        type: string
+        description: ''
+        match: ':id'
+    queryParameters: {}
+    bodyParameters: {}
+    responses: []
+    responseFields: {}
+  - uri: /v1/api/group/list
+    httpMethods:
+      - GET
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: {}
+    queryParameters: {}
+    bodyParameters: {}
+    responses:
+      - status: 500
+        description: ''
+        headers:
+          content-type: application/json; charset=utf-8
+        content: |-
+          {
+              "message": "Token not found"
+          }
+    responseFields: {}
+  - uri: '/v1/api/group/delete/:id'
+    httpMethods:
+      - DELETE
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        example: doloremque
         required: true
         type: string
         description: ''

@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const groupSchema = mongoose.Schema(
   {
+    name: {
+      type: String,
+      require: true,
+    },
     teaching_center_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "teaching_centers",
@@ -13,23 +17,11 @@ const groupSchema = mongoose.Schema(
       ref: "file",
       default: null,
     },
-    teachers_id: {
-      type: [
-        {
-          price: Number,
-          teacher_id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "teachers",
-          },
-        },
-      ],
+    topics: {
+      ref: "topics",
+      type: [mongoose.Schema.Types.ObjectId],
       default: [],
       required: true,
-    },
-    sections: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "sections",
-      default: [],
     },
     is_deleted: {
       type: Boolean,
