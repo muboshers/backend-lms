@@ -58,6 +58,7 @@ const updateTeachingCenterAdminController = async (req, res) => {
       return res.status(404).json({ message: "Invalid teaching center id" });
 
     const currentTeachingCenter = await teachingCenterModel.findById(id);
+    
     if (branch?.length >= 1) {
       for (let index = 0; index < branch.length; index++) {
         if (!mongoose.isValidObjectId(branch[index]))
