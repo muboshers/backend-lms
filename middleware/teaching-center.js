@@ -10,6 +10,7 @@ const TEACHING_CENTER_OR_TEACHERS = (req, res, next) => {
     if (!token) throw new Error("Token not found");
 
     const data = jwt.verify(token, JWT_SECRET);
+    
     if (data.role === ROLES.DIRECTOR) {
       req.teachingCenterId = data._id;
     } else {

@@ -15,7 +15,7 @@ const teacherSchema = mongoose.Schema(
     teaching_center_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "teaching_centers",
-      default: "",
+      default: null,
       required: true,
     },
     is_deleted: {

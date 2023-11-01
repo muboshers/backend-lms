@@ -142,6 +142,8 @@ const getTeachingCenterAdminController = async (req, res) => {
 
     if (search) {
       query = query
+        .where("is_deleted")
+        .equals(false)
         .where("name")
         .regex(new RegExp(search, "i"))
         .populate({

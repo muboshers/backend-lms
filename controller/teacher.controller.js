@@ -107,7 +107,79 @@ const TeacherUpdateController = async (req, res) => {
   }
 };
 
+const TeacherDeleteController = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!req.teachingCenterId && !req.mainAdmin)
+      return res.status(400).json({ message: "Invalid credintials" });
+
+    if (!mongoose.isValidObjectId(id))
+      return res.status(400).json({ message: "Invalid teacher id" });
+
+    let currentTeacher = await teacherModel.findById(id);
+
+    if (!currentTeacher)
+      return res.status(404).json({ message: "Teacher not found" });
+
+    if (req.teachingCenterId != currentTeacher?.teaching_center_id)
+      return res.status(400).json({ message: "No no no 😒" });
+
+    currentTeacher.is_deleted = true;
+    await currentTeacher.save();
+
+    res.status(200).json({ message: "Teacher was deleted" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const GetTeachersListController = async (req, res) => {
+  try {
+    if (!req.teachingCenterId)
+      return res.status(400).json({ message: "Invalid credintials" });
+
+    const { page = 1, limit = 10, search } = req.query;
+
+    const skip = (page - 1) * limit;
+
+    let query = teacherModel
+      .find({
+        is_deleted: false,
+        teaching_center_id: req.teachingCenterId,
+      })
+      .select("name phone_number age teaching_center_id");
+
+    if (search) {
+      query = query
+        .where("teaching_center_id")
+        .equals(req.teachingCenterId)
+        .where("is_deleted")
+        .equals(false)
+        .where("name")
+        .regex(new RegExp(search, "i"))
+        .select("name phone_number age teaching_center_id");
+    }
+
+    const teachersList = await query.skip(skip).limit(limit).exec();
+
+    const count = await teacherModel.countDocuments(query.getFilter());
+
+    res.status(200).json({
+      data: teachersList,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   CreateTeacherController,
   TeacherUpdateController,
+  TeacherDeleteController,
+  GetTeachersListController,
 };
