@@ -8,7 +8,7 @@ const sectionSchema = mongoose.Schema(
       ref: "teachers",
       default: "",
       required: true,
-    },
+  },
     reports: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "reports",

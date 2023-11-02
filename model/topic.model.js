@@ -12,6 +12,10 @@ const topicSchema = mongoose.Schema(
       ref: "sections",
       default: [],
     },
+    is_deleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

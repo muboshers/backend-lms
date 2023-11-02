@@ -4,10 +4,12 @@ const {
   createTeachingCenterAdminSchema,
   updateTeachingCenterAdminSchema,
 } = require("./teaching-center.validation");
+const { topicSchema } = require("./topic.validation");
 
 module.exports = {
   createTeachingCenterAdminSchema,
   updateTeachingCenterAdminSchema,
   authSchema,
   groupCreateSchema,
+  topicSchema,
 };

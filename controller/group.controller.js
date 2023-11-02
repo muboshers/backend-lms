@@ -18,7 +18,7 @@ const CreateGroupController = async (req, res) => {
       teaching_center_id: req.teachingCenterId,
     });
 
-    if (isExistGroup)
+    if (isExistGroup.name === name)
       return res.status(400).json({
         message: "This group alrady exist please create another group",
       });
@@ -49,6 +49,11 @@ const UpdateGroupController = async (req, res) => {
       return res.status(404).json({ message: "Invalid id" });
 
     let currentGroup = await groupModel.findById(id);
+
+    if (currentGroup.is_deleted)
+      return res
+        .status(400)
+        .json({ message: "This group deleted you can not update information" });
 
     if (req.teachingCenterId !== currentGroup?.teaching_center_id.toString())
       return res.status(423).json({
@@ -82,6 +87,9 @@ const DeleteGroupController = async (req, res) => {
       return res.status(404).json({ message: "Invalid id" });
 
     let currentGroup = await groupModel.findById(id);
+
+    if (currentGroup.is_deleted)
+      return res.status(400).json({ message: "This group alrady removed" });
 
     if (req.teachingCenterId !== currentGroup?.teaching_center_id.toString())
       return res.status(423).json({

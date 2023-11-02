@@ -78,6 +78,11 @@ const TeacherUpdateController = async (req, res) => {
     if (!isAuthenticatedError)
       return res.status(400).json({ message: "Invalid credintials" });
 
+    if (currentTeacher.is_deleted)
+      return res.status(400).json({
+        message: "This teacher  deleted you can not update information",
+      });
+
     let { degree, ...other } = req.body;
 
     if (req.body.password) {
@@ -118,6 +123,11 @@ const TeacherDeleteController = async (req, res) => {
       return res.status(400).json({ message: "Invalid teacher id" });
 
     let currentTeacher = await teacherModel.findById(id);
+
+    if (currentTeacher.is_deleted)
+      return res.status(400).json({
+        message: "This teacher  deleted you can not update information",
+      });
 
     if (!currentTeacher)
       return res.status(404).json({ message: "Teacher not found" });

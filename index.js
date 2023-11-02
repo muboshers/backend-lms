@@ -9,6 +9,7 @@ const {
   AuthRouter,
   TeacherRouter,
   GroupRouter,
+  TopicRouter,
 } = require("./routes");
 const { TEACHING_CENTER_OR_TEACHERS } = require("./middleware");
 
@@ -33,6 +34,7 @@ app.use("/v1/api/files", isTestAuth, FilesRouter);
 app.use("/v1/api/auth", AuthRouter);
 app.use("/v1/api/teacher", TEACHING_CENTER_OR_TEACHERS, TeacherRouter);
 app.use("/v1/api/group", TEACHING_CENTER_OR_TEACHERS, GroupRouter);
+app.use("/v1/api/topic", TEACHING_CENTER_OR_TEACHERS, TopicRouter);
 
 mongoose
   .connect(process.env.MONGO_URL)

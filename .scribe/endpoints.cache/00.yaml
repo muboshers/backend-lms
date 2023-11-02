@@ -47,7 +47,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: ab
+        example: qui
         required: true
         type: string
         description: ''
@@ -57,19 +57,19 @@ endpoints:
       password:
         name: password
         type: string
-        example: aliquam
+        example: quas
         required: true
         description: ''
       login:
         name: login
         type: string
-        example: pariatur
+        example: aut
         required: true
         description: ''
       image_id:
         name: image_id
         type: string
-        example: officia
+        example: sit
         required: true
         description: ''
     responses: []
@@ -85,7 +85,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: vero
+        example: magni
         required: true
         type: string
         description: ''
@@ -153,7 +153,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: aut
+        example: iusto
         required: true
         type: string
         description: ''
@@ -228,13 +228,13 @@ endpoints:
       login:
         name: login
         type: string
-        example: tempore
+        example: omnis
         required: true
         description: ''
       password:
         name: password
         type: string
-        example: accusamus
+        example: a
         required: true
         description: ''
     responses: []
@@ -263,7 +263,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: fuga
+        example: quia
         required: true
         type: string
         description: ''
@@ -273,7 +273,7 @@ endpoints:
       password:
         name: password
         type: string
-        example: voluptates
+        example: debitis
         required: true
         description: ''
     responses: []
@@ -289,7 +289,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: ex
+        example: et
         required: true
         type: string
         description: ''
@@ -343,7 +343,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: voluptas
+        example: temporibus
         required: true
         type: string
         description: ''
@@ -384,7 +384,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        example: doloremque
+        example: ad
         required: true
         type: string
         description: ''
@@ -392,4 +392,85 @@ endpoints:
     queryParameters: {}
     bodyParameters: {}
     responses: []
+    responseFields: {}
+  - uri: /v1/api/topic/create
+    httpMethods:
+      - POST
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: {}
+    queryParameters: {}
+    bodyParameters: {}
+    responses: []
+    responseFields: {}
+  - uri: '/v1/api/topic/update/:id'
+    httpMethods:
+      - PATCH
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        example: eum
+        required: true
+        type: string
+        description: ''
+        match: ':id'
+    queryParameters: {}
+    bodyParameters: {}
+    responses: []
+    responseFields: {}
+  - uri: '/v1/api/topic/delete/:id'
+    httpMethods:
+      - DELETE
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        example: dolor
+        required: true
+        type: string
+        description: ''
+        match: ':id'
+    queryParameters: {}
+    bodyParameters: {}
+    responses: []
+    responseFields: {}
+  - uri: '/v1/api/topic/get-by-teacher/:teacher_id'
+    httpMethods:
+      - GET
+    metadata:
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      teacher_id:
+        name: teacher_id
+        example: accusantium
+        required: true
+        type: string
+        description: The ID of the teacher.
+        match: ':teacher_id'
+    queryParameters: {}
+    bodyParameters: {}
+    responses:
+      - status: 500
+        description: ''
+        headers:
+          content-type: application/json; charset=utf-8
+        content: |-
+          {
+              "message": "Token not found"
+          }
     responseFields: {}

@@ -58,7 +58,10 @@ const updateTeachingCenterAdminController = async (req, res) => {
       return res.status(404).json({ message: "Invalid teaching center id" });
 
     const currentTeachingCenter = await teachingCenterModel.findById(id);
-    
+
+    if (currentTeachingCenter.is_deleted)
+      throw new Error("This teaching center deleted you can not edit ");
+
     if (branch?.length >= 1) {
       for (let index = 0; index < branch.length; index++) {
         if (!mongoose.isValidObjectId(branch[index]))
@@ -106,11 +109,22 @@ const updateTeachingCenterAdminController = async (req, res) => {
 const deleteTeachingCenterAdminController = async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (!req.mainAdmin)
+      return res.status(401).json({ message: "Invalid credintials" });
+
     if (!mongoose.isValidObjectId(id))
       return res.status(404).json({ message: "Invalid teaching center id" });
 
-    await teachingCenterModel.findByIdAndUpdate(id, { is_deleted: true });
+    let currentTeachingCenter = await teachingCenterModel.findById(id);
 
+    if (currentTeachingCenter?.is_deleted)
+      throw new Error(
+        "This teaching center removed you can not update this information"
+      );
+
+    currentTeachingCenter.is_deleted = true;
+    await currentTeachingCenter.save();
     res.status(200).json({ message: "Teaching center deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message });

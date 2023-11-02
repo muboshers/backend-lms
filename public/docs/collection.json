@@ -12,7 +12,7 @@
         "name": "Lms System Documentation",
         "description": "",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-        "_postman_id": "4fe28945-12cd-4376-ad84-fbf8c90e5f70"
+        "_postman_id": "e7d4bf29-515f-45e9-af4a-f9a3335e20cb"
     },
     "item": [
         {
@@ -98,7 +98,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ab",
+                                    "value": "qui",
                                     "description": ""
                                 }
                             ]
@@ -116,7 +116,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"password\": \"aliquam\",\n    \"login\": \"pariatur\",\n    \"image_id\": \"officia\"\n}"
+                            "raw": "{\n    \"password\": \"quas\",\n    \"login\": \"aut\",\n    \"image_id\": \"sit\"\n}"
                         },
                         "description": null,
                         "auth": {
@@ -137,7 +137,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "vero",
+                                    "value": "magni",
                                     "description": ""
                                 }
                             ]
@@ -213,7 +213,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "aut",
+                                    "value": "iusto",
                                     "description": ""
                                 }
                             ]
@@ -339,7 +339,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"login\": \"tempore\",\n    \"password\": \"accusamus\"\n}"
+                            "raw": "{\n    \"login\": \"omnis\",\n    \"password\": \"a\"\n}"
                         },
                         "description": null,
                         "auth": {
@@ -388,7 +388,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "fuga",
+                                    "value": "quia",
                                     "description": ""
                                 }
                             ]
@@ -406,7 +406,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"password\": \"voluptates\"\n}"
+                            "raw": "{\n    \"password\": \"debitis\"\n}"
                         },
                         "description": null,
                         "auth": {
@@ -427,7 +427,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ex",
+                                    "value": "et",
                                     "description": ""
                                 }
                             ]
@@ -531,7 +531,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "voluptas",
+                                    "value": "temporibus",
                                     "description": ""
                                 }
                             ]
@@ -607,7 +607,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "doloremque",
+                                    "value": "ad",
                                     "description": ""
                                 }
                             ]
@@ -630,6 +630,154 @@
                         }
                     },
                     "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/topic/create",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/topic/create"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/topic/update/:id",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/topic/update/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "eum",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/topic/delete/:id",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/topic/delete/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "dolor",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/topic/get-by-teacher/:teacher_id",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/topic/get-by-teacher/:teacher_id",
+                            "variable": [
+                                {
+                                    "id": "teacher_id",
+                                    "key": "teacher_id",
+                                    "value": "accusantium",
+                                    "description": "The ID of the teacher."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json; charset=utf-8"
+                                }
+                            ],
+                            "code": 500,
+                            "body": "{\n    \"message\": \"Token not found\"\n}",
+                            "name": ""
+                        }
+                    ]
                 }
             ]
         }
