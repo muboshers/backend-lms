@@ -40,7 +40,7 @@ const LoginController = async (req, res) => {
       if (!isCorrectPassword)
         return res.status(400).json({ message: "Parol to'gri emas!" });
 
-      const token = generateToken({
+      const token = await generateToken({
         _id: teacher._id,
         name: teacher.name,
         age: teacher?.age,
@@ -82,7 +82,7 @@ const LoginController = async (req, res) => {
     if (!isCorrectPassword)
       return res.status(400).json({ message: "Parol xato!" });
 
-    const token = generateToken({
+    const token = await generateToken({
       _id: teaching_center._id,
       name: teaching_center.name,
       address: teaching_center?.address,
@@ -126,7 +126,7 @@ const GetMeController = async (req, res) => {
           .status(401)
           .json({ message: "O'quvtichi o'chirib tashlangan" });
 
-      const token = generateToken({
+      const token = await generateToken({
         _id: teacher._id,
         name: teacher.name,
         age: teacher?.age,
@@ -162,7 +162,7 @@ const GetMeController = async (req, res) => {
         .status(401)
         .json({ message: "O'quv markaz ma'lumotlari topilmadi" });
 
-    const token = generateToken({
+    const token = await generateToken({
       _id: teachingCenter._id,
       name: teachingCenter.name,
       address: teachingCenter?.address,

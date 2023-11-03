@@ -18,6 +18,7 @@ const FileUploadController = async (req, res) => {
             url,
             filename: file.originalname,
             file_type: file.type,
+            teaching_center_id: req.teachingCenterId,
           });
           filesIds.push(uploadedFile._id);
         });
