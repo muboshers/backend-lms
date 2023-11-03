@@ -56,9 +56,10 @@ const UpdateTopicController = async (req, res) => {
 
     let currentTopic = await topicModel.findById(id);
 
+    if (!currentTopic) throw new Error("Topic not found");
+
     if (currentTopic?.is_deleted)
       throw new Error("This topic removed you can not update this topics");
-
     currentTopic.price = price ?? currentTopic?.price;
     currentTopic.sections = sections ?? currentTopic?.sections;
     await currentTopic.save();
@@ -111,16 +112,34 @@ const GetTopicListByTeacherIdController = async (req, res) => {
     if (!req.teachingCenterId || !mongoose.isValidObjectId(teacher_id))
       return res.status(401).json({ message: "Invalid credintials" });
 
-
     const { page = 1, limit = 10, search } = req.query;
 
     const skip = (page - 1) * limit;
 
-    let query = topicModel
-      .find({
-        is_deleted: false,
-        teacher_id,
-      })
+    let query = topicModel.find({
+      is_deleted: false,
+      teacher_id,
+    });
+    // .populate({
+    //   path: "sections",
+    //   select: ["name", "reports"],
+    //   populate: {
+    //     path: "sections.reports",
+    //     select: ["pupil_id", "message", "type", "status"],
+    //     populate: {
+    //       path: "sections.reports.pupil_id",
+    //     },
+    //   },
+    // });
+
+    if (search) {
+      query = query
+        .where("is_deleted")
+        .equals(false)
+        .where("teacher_id")
+        .equals(teacher_id)
+        .where("price")
+        .regex(new RegExp(search, "i"));
       // .populate({
       //   path: "sections",
       //   select: ["name", "reports"],
@@ -132,26 +151,6 @@ const GetTopicListByTeacherIdController = async (req, res) => {
       //     },
       //   },
       // });
-
-    if (search) {
-      query = query
-        .where("is_deleted")
-        .equals(false)
-        .where("teacher_id")
-        .equals(teacher_id)
-        .where("price")
-        .regex(new RegExp(search, "i"))
-        // .populate({
-        //   path: "sections",
-        //   select: ["name", "reports"],
-        //   populate: {
-        //     path: "sections.reports",
-        //     select: ["pupil_id", "message", "type", "status"],
-        //     populate: {
-        //       path: "sections.reports.pupil_id",
-        //     },
-        //   },
-        // });
     }
 
     const topicList = await query.skip(skip).limit(limit).exec();

@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const {
   TeachingCentersRouter,
@@ -10,13 +11,21 @@ const {
   TeacherRouter,
   GroupRouter,
   TopicRouter,
+  PupilsRouter,
 } = require("./routes");
+
 const { TEACHING_CENTER_OR_TEACHERS } = require("./middleware");
 
 const app = express();
 
 app.use(express.json());
 app.use(express.static("./public"));
+app.use(
+  cors({
+    origin: ["http://127.0.0.1:3030", "https://app-lms-dashboard.vercel.app"],
+    methods: ["*"],
+  })
+);
 
 const PORT = process.env.PORT || 5000;
 
@@ -35,6 +44,7 @@ app.use("/v1/api/auth", AuthRouter);
 app.use("/v1/api/teacher", TEACHING_CENTER_OR_TEACHERS, TeacherRouter);
 app.use("/v1/api/group", TEACHING_CENTER_OR_TEACHERS, GroupRouter);
 app.use("/v1/api/topic", TEACHING_CENTER_OR_TEACHERS, TopicRouter);
+app.use("/v1/api/pupils", TEACHING_CENTER_OR_TEACHERS, PupilsRouter);
 
 mongoose
   .connect(process.env.MONGO_URL)

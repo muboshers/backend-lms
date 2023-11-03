@@ -12,7 +12,7 @@
         "name": "Lms System Documentation",
         "description": "",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-        "_postman_id": "e7d4bf29-515f-45e9-af4a-f9a3335e20cb"
+        "_postman_id": "1351206e-98ec-4207-a86a-fe9b944809a9"
     },
     "item": [
         {
@@ -116,7 +116,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"password\": \"quas\",\n    \"login\": \"aut\",\n    \"image_id\": \"sit\"\n}"
+                            "raw": "{\n    \"password\": \"nulla\",\n    \"login\": \"omnis\",\n    \"image_id\": \"eum\"\n}"
                         },
                         "description": null,
                         "auth": {
@@ -137,7 +137,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "magni",
+                                    "value": "sapiente",
                                     "description": ""
                                 }
                             ]
@@ -213,7 +213,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "iusto",
+                                    "value": "quidem",
                                     "description": ""
                                 }
                             ]
@@ -339,7 +339,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"login\": \"omnis\",\n    \"password\": \"a\"\n}"
+                            "raw": "{\n    \"login\": \"iusto\",\n    \"password\": \"velit\"\n}"
                         },
                         "description": null,
                         "auth": {
@@ -388,7 +388,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quia",
+                                    "value": "aliquid",
                                     "description": ""
                                 }
                             ]
@@ -406,7 +406,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"password\": \"debitis\"\n}"
+                            "raw": "{\n    \"password\": \"hic\"\n}"
                         },
                         "description": null,
                         "auth": {
@@ -427,7 +427,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "et",
+                                    "value": "soluta",
                                     "description": ""
                                 }
                             ]
@@ -531,7 +531,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "temporibus",
+                                    "value": "quos",
                                     "description": ""
                                 }
                             ]
@@ -607,7 +607,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ad",
+                                    "value": "dicta",
                                     "description": ""
                                 }
                             ]
@@ -671,7 +671,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "eum",
+                                    "value": "ad",
                                     "description": ""
                                 }
                             ]
@@ -707,7 +707,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "dolor",
+                                    "value": "omnis",
                                     "description": ""
                                 }
                             ]
@@ -743,10 +743,150 @@
                                 {
                                     "id": "teacher_id",
                                     "key": "teacher_id",
-                                    "value": "accusantium",
+                                    "value": "eligendi",
                                     "description": "The ID of the teacher."
                                 }
                             ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "content-type",
+                                    "value": "application/json; charset=utf-8"
+                                }
+                            ],
+                            "code": 500,
+                            "body": "{\n    \"message\": \"Token not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/pupils/create",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/pupils/create"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/pupils/update/:id",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/pupils/update/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "reiciendis",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/pupils/delete/:id",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/pupils/delete/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "optio",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null,
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "v1/api/pupils/get-list",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/v1/api/pupils/get-list"
                         },
                         "method": "GET",
                         "header": [

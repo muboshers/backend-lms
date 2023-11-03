@@ -7,32 +7,20 @@ const pupilSchema = mongoose.Schema(
     parent_contact_information: {
       type: String,
     },
-    teacher_id: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "teachers",
-      default: "",
-      required: true,
-    },
-    groups_id: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "groups",
-      default: "",
-      required: true,
-    },
 
     teaching_center_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "teaching_centers",
-      default: "",
+      default: null,
       required: true,
     },
     degree: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "degrees",
-      default: "",
-      required: true,
+      default: [],
+      required: false,
     },
-  
+
     is_deleted: {
       type: Boolean,
       default: false,

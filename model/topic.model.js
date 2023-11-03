@@ -12,6 +12,11 @@ const topicSchema = mongoose.Schema(
       ref: "sections",
       default: [],
     },
+    pupils: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "pupils",
+      default: [],
+    },
     is_deleted: {
       type: Boolean,
       default: false,

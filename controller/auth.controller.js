@@ -14,19 +14,23 @@ const LoginController = async (req, res) => {
       const teacher = await teacherModel
         .findOne({ login: req.body.login })
         .populate({
-          path: "degree",
-        })
-        .populate({
           path: "teaching_center_id",
           select: ["name", "address", "logo", "location"],
           populate: {
             path: "logo",
             select: ["url"],
+            match: {
+              is_deleted: {
+                $ne: true,
+              },
+            },
           },
         });
 
       if (!teacher)
-        return res.status(400).json({ message: "Teacher not found!" });
+        return res
+          .status(400)
+          .json({ message: "O'qituvchi ma'lumotlari topilmadi" });
 
       const isCorrectPassword = await checkPassword(
         req.body.password,
@@ -34,7 +38,7 @@ const LoginController = async (req, res) => {
       );
 
       if (!isCorrectPassword)
-        return res.status(400).json({ message: "Incorrect password" });
+        return res.status(400).json({ message: "Parol to'gri emas!" });
 
       const token = generateToken({
         _id: teacher._id,
@@ -60,10 +64,15 @@ const LoginController = async (req, res) => {
       .populate({
         path: "logo",
         select: ["url"],
+        match: {
+          is_deleted: {
+            $ne: true,
+          },
+        },
       });
 
     if (!teaching_center)
-      return res.status(400).json({ message: "Teaching center not found!" });
+      return res.status(400).json({ message: "O'quv markazi topilmadi" });
 
     const isCorrectPassword = await checkPassword(
       req.body.password,
@@ -71,7 +80,7 @@ const LoginController = async (req, res) => {
     );
 
     if (!isCorrectPassword)
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ message: "Parol xato!" });
 
     const token = generateToken({
       _id: teaching_center._id,
@@ -95,6 +104,85 @@ const LoginController = async (req, res) => {
   }
 };
 
+const GetMeController = async (req, res) => {
+  try {
+    if (req.teacherId) {
+      const teacher = await teacherModel.findById(req.teacherId).populate({
+        path: "teaching_center_id",
+        select: ["name", "address", "logo", "location"],
+        populate: {
+          path: "logo",
+          select: ["url"],
+          match: {
+            is_deleted: {
+              $ne: true,
+            },
+          },
+        },
+      });
+
+      if (teacher.is_deleted || !teacher)
+        return res
+          .status(401)
+          .json({ message: "O'quvtichi o'chirib tashlangan" });
+
+      const token = generateToken({
+        _id: teacher._id,
+        name: teacher.name,
+        age: teacher?.age,
+        role: ROLES.TEACHER,
+        teaching_center_id: teacher.teaching_center_id._id,
+      });
+      res.status(200).json({
+        data: {
+          teacher: currentTeacher,
+          token,
+        },
+      });
+    }
+
+    if (req.role !== ROLES.DIRECTOR && !req.teachingCenterId)
+      throw new Error("Token muddati tugagan");
+
+    const teachingCenter = await teachingCenterModel
+      .findById(req.teachingCenterId)
+      .populate({
+        path: "logo",
+        select: ["url"],
+        match: {
+          is_deleted: {
+            $ne: true,
+          },
+        },
+      })
+      .select("name address location phone_number logo ");
+
+    if (teachingCenter.is_deleted || !teachingCenter)
+      return res
+        .status(401)
+        .json({ message: "O'quv markaz ma'lumotlari topilmadi" });
+
+    const token = generateToken({
+      _id: teachingCenter._id,
+      name: teachingCenter.name,
+      address: teachingCenter?.address,
+      role: ROLES.DIRECTOR,
+    });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        teaching_center: teachingCenter,
+        token,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   LoginController,
+  GetMeController,
 };
