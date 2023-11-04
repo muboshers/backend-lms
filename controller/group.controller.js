@@ -116,10 +116,29 @@ const GetGroupListController = async (req, res) => {
 
     const skip = (page - 1) * limit;
 
-    let query = groupModel.find({
-      teaching_center_id: req.teachingCenterId,
-      is_deleted: false,
-    });
+    let query = groupModel
+      .find({
+        teaching_center_id: req.teachingCenterId,
+        is_deleted: false,
+      })
+      .populate({
+        path: "image",
+        select: ["url"],
+        match: {
+          is_deleted: {
+            $ne: true,
+          },
+        },
+      })
+      .populate({
+        path: "topics",
+        select: ["pupils"],
+        match: {
+          is_deleted: {
+            $ne: true,
+          },
+        },
+      });
 
     if (search) {
       query = query
@@ -128,7 +147,25 @@ const GetGroupListController = async (req, res) => {
         .where("is_deleted")
         .equals(false)
         .where("name")
-        .regex(new RegExp(search, "i"));
+        .regex(new RegExp(search, "i"))
+        .populate({
+          path: "image",
+          select: ["url"],
+          match: {
+            is_deleted: {
+              $ne: true,
+            },
+          },
+        })
+        .populate({
+          path: "topics",
+          select: ["pupils"],
+          match: {
+            is_deleted: {
+              $ne: true,
+            },
+          },
+        });
     }
 
     const groupList = await query.skip(skip).limit(limit).exec();

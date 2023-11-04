@@ -1,31 +1,39 @@
 const { default: mongoose } = require("mongoose");
 const teacherModel = require("../model/teacher.model");
 const topicModel = require("../model/topic.model");
+const groupModel = require("../model/group.model");
 
 const CreateTopicController = async (req, res) => {
   try {
     if (!req.teachingCenterId)
       return res.status(401).json({ message: "Invalid credintials" });
 
-    const { price, teacher_id, sections } = req.body;
+    const { price, teacher_id, sections, group_id } = req.body;
 
-    if (!mongoose.isValidObjectId(teacher_id))
-      return res.status(400).json({ message: "Invalid teacher id" });
+    if (
+      !mongoose.isValidObjectId(teacher_id) ||
+      !mongoose.isValidObjectId(group_id)
+    )
+      return res.status(400).json({ message: "Invalid teacher or group id" });
 
     const teacher = await teacherModel.findById(teacher_id);
 
-    if (
+    let currentGroup = await groupModel.findById(group_id);
+      if (
       teacher &&
       !teacher.is_deleted &&
       teacher.teaching_center_id.toString() !== req.teachingCenterId
     )
       return res.status(400).json({ message: "No no no 😒" });
 
-    await topicModel.create({
+    const topic = await topicModel.create({
       price,
       teacher_id,
       sections,
     });
+
+    currentGroup.topics.unshift(topic._id);
+    await currentGroup.save();
     res.status(200).json({ message: "Topic created" });
   } catch (error) {
     console.log(error);

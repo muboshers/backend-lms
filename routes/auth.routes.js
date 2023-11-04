@@ -14,3 +14,4 @@ AuthRouter.post("/login", validateRequestBody(authSchema), LoginController);
 AuthRouter.get("/get-me", TEACHING_CENTER_OR_TEACHERS, GetMeController);
 
 module.exports = AuthRouter;
+  
