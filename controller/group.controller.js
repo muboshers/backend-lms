@@ -2,15 +2,18 @@ const groupModel = require("../model/group.model");
 const { ROLES } = require("../constants");
 const { default: mongoose } = require("mongoose");
 const fileModel = require("../model/file.model");
+const topicModel = require("../model/topic.model");
 
 const CreateGroupController = async (req, res) => {
   try {
     if (!req.teachingCenterId || req.role !== ROLES.DIRECTOR)
       return res.status(400).json({ message: "Invalid credintials" });
 
-    const { image, name } = req.body;
+    let topicIds = [];
 
-    if (!mongoose.isValidObjectId(image))
+    const { image, name, topics } = req.body;
+
+    if (image && !mongoose.isValidObjectId(image))
       return res.status(400).json({ message: "Invalid image id" });
 
     const isExistGroup = await groupModel.find({
@@ -23,10 +26,26 @@ const CreateGroupController = async (req, res) => {
         message: "This group alrady exist please create another group",
       });
 
+    for await (let topic of topics) {
+      if (!mongoose.isValidObjectId(topic?.teacher_id))
+        return res.status(400).json({ message: "Invalid teacher" });
+
+      const { teacher_id, price, percentage } = topic;
+
+      const newTopic = await topicModel.create({
+        teacher_id,
+        price,
+        percentage,
+      });
+
+      topicIds.unshift(newTopic._id);
+    }
+
     await groupModel.create({
       name,
-      image,
+      image: !!image ? image : "654625ad0398406e87556a16",
       teaching_center_id: req.teachingCenterId,
+      topics: topicIds,
     });
 
     res.status(200).json({ message: "Successfully created" });

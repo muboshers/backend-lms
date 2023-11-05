@@ -15,7 +15,7 @@ const groupSchema = mongoose.Schema(
     image: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "file",
-      default: "654625ad0398406e87556a16",
+      default: "",
     },
     topics: {
       ref: "topics",

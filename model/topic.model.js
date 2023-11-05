@@ -3,6 +3,10 @@ const { default: mongoose } = require("mongoose");
 const topicSchema = mongoose.Schema(
   {
     price: Number,
+    percentage: {
+      type: Number,
+      require: true,
+    },
     teacher_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "teachers",

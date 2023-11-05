@@ -39,7 +39,7 @@ const isTestAuth = (req, res, next) => {
 };
 
 app.use("/v1/api/teaching-center", isTestAuth, TeachingCentersRouter);
-app.use("/v1/api/files", isTestAuth, FilesRouter);
+app.use("/v1/api/file", isTestAuth, FilesRouter);
 app.use("/v1/api/auth", AuthRouter);
 app.use("/v1/api/teacher", TEACHING_CENTER_OR_TEACHERS, TeacherRouter);
 app.use("/v1/api/group", TEACHING_CENTER_OR_TEACHERS, GroupRouter);
