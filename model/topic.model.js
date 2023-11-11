@@ -5,7 +5,21 @@ const topicSchema = mongoose.Schema(
     price: Number,
     percentage: {
       type: Number,
-      require: true,
+      required: true,
+    },
+    during_month: {
+      type: String,
+      required: true,
+    },
+    start_date: {
+      type: String,
+      required: true,
+    },
+    time_of_day: String,
+    week_days: {
+      type: Array,
+      enums: ["Dush", "Sesh", "Chor", "Pay", "Juma", "Shan", "Yak"],
+      required: true,
     },
     teacher_id: {
       type: mongoose.Schema.Types.ObjectId,

@@ -3,6 +3,7 @@ const {
   UpdateGroupController,
   DeleteGroupController,
   GetGroupListController,
+  GetGroupByIdController,
 } = require("../controller/group.controller");
 
 const validateRequestBody = require("../middleware/check-request-body");
@@ -23,6 +24,7 @@ GroupRouter.patch(
 );
 
 GroupRouter.get("/list", GetGroupListController);
+GroupRouter.get("/get/:id", GetGroupByIdController);
 
 GroupRouter.delete("/delete/:id", DeleteGroupController);
 
