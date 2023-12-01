@@ -19,7 +19,7 @@ const topicSchema = mongoose.Schema(
     week_days: {
       type: Array,
       enums: ["Dush", "Sesh", "Chor", "Pay", "Juma", "Shan", "Yak"],
-      required: true,
+      require: true,
     },
     teacher_id: {
       type: mongoose.Schema.Types.ObjectId,
