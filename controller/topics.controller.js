@@ -118,7 +118,6 @@ const DeleteTopicController = async (req, res) => {
     if (currentTopic?.is_deleted) throw new Error("This topic alrady removed");
 
     currentTopic.is_deleted = true;
-
     await currentTopic.save();
     res.status(200).json({ message: "Topic deleted" });
   } catch (error) {
