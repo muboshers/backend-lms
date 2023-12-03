@@ -2,9 +2,6 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const { WebSocketServer } = require("ws");
-const sockserver = new WebSocketServer({ port: 443 });
-const cors = require("cors");
 
 const {
   TeachingCentersRouter,
@@ -51,21 +48,6 @@ app.use("/v1/api/teacher", TEACHING_CENTER_OR_TEACHERS, TeacherRouter);
 app.use("/v1/api/group", TEACHING_CENTER_OR_TEACHERS, GroupRouter);
 app.use("/v1/api/topic", TEACHING_CENTER_OR_TEACHERS, TopicRouter);
 app.use("/v1/api/pupils", TEACHING_CENTER_OR_TEACHERS, PupilsRouter);
-
-sockserver.on("connection", (ws) => {
-  console.log("New client connected!");
-  ws.send("connection established");
-  ws.on("close", () => console.log("Client has disconnected!"));
-  ws.on("message", (data) => {
-    sockserver.clients.forEach((client) => {
-      console.log(`distributing message: ${data}`);
-      client.send(`${data}`);
-    });
-  });
-  ws.onerror = function () {
-    console.log("websocket error");
-  };
-});
 
 mongoose
   .connect(process.env.MONGO_URL)
