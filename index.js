@@ -13,6 +13,7 @@ const {
   GroupRouter,
   TopicRouter,
   PupilsRouter,
+  LocalizationRouter,
 } = require("./routes");
 
 const { TEACHING_CENTER_OR_TEACHERS } = require("./middleware");
@@ -50,7 +51,11 @@ app.use("/v1/api/teacher", TEACHING_CENTER_OR_TEACHERS, TeacherRouter);
 app.use("/v1/api/group", TEACHING_CENTER_OR_TEACHERS, GroupRouter);
 app.use("/v1/api/topic", TEACHING_CENTER_OR_TEACHERS, TopicRouter);
 app.use("/v1/api/pupils", TEACHING_CENTER_OR_TEACHERS, PupilsRouter);
-
+app.use(
+  "/v1/api/localization",
+  TEACHING_CENTER_OR_TEACHERS,
+  LocalizationRouter
+);
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {

@@ -53,7 +53,31 @@ const SingleFileUploadController = async (req, res) => {
   }
 };
 
+const JSONUploadController = async (req, res) => {
+  try {
+    const file = req.file;
+    const storageRef = ref(storage, `/locales/${file.originalname}`);
+    await uploadBytes(storageRef, file.buffer)
+      .then((snapshot) => {
+        return getDownloadURL(ref(storage, snapshot.metadata.fullPath));
+      })
+      .then(async (url) => {
+        const uploadedFile = await fileModel.create({
+          url,
+          filename: file.originalname,
+          file_type: file.type,
+          teaching_center_id: req.teachingCenterId,
+        });
+        res.status(200).json({ success: true, data: uploadedFile });
+      });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error.message);
+  }
+};
+
 module.exports = {
   MultipleFileUploadController,
   SingleFileUploadController,
+  JSONUploadController,
 };
