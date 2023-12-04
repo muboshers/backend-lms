@@ -110,10 +110,25 @@ const GetTeachingCenterLanguages = async (req, res) => {
     if (!req.teachingCenterId)
       return res.status(400).json({ message: "O'quv markaz topilmadi" });
 
-    const languages = localizationModel.find({
-      teaching_center_id: req.teachingCenterId,
-      is_deleted: false,
-    });
+    const languages = await localizationModel
+      .find({
+        teaching_center_id: req.teachingCenterId,
+        is_deleted: false,
+      })
+      .populate({
+        path: "language",
+        populate: [
+          {
+            path: "logo_id",
+            select: ["url", "filename"],
+            match: {
+              is_deleted: {
+                $ne: true,
+              },
+            },
+          },
+        ],
+      });
 
     res.status(200).json(languages);
   } catch (err) {
