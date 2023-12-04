@@ -7,19 +7,19 @@ const {
 } = require("../controller/group.controller");
 
 const validateRequestBody = require("../middleware/check-request-body");
-const { groupCreateSchema } = require("../validation");
+const { groupSchema } = require("../validation");
 
 const GroupRouter = require("express").Router();
 
 GroupRouter.post(
   "/create",
-  validateRequestBody(groupCreateSchema),
+  validateRequestBody(groupSchema),
   CreateGroupController
 );
 
 GroupRouter.patch(
   "/update/:id",
-  validateRequestBody(groupCreateSchema),
+  validateRequestBody(groupSchema),
   UpdateGroupController
 );
 

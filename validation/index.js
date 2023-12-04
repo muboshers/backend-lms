@@ -1,5 +1,5 @@
 const { authSchema } = require("./auth.validation");
-const { groupCreateSchema } = require("./group.validation");
+const { groupSchema } = require("./group.validation");
 const {
   createTeachingCenterAdminSchema,
   updateTeachingCenterAdminSchema,
@@ -10,6 +10,6 @@ module.exports = {
   createTeachingCenterAdminSchema,
   updateTeachingCenterAdminSchema,
   authSchema,
-  groupCreateSchema,
+  groupSchema,
   topicSchema,
 };
