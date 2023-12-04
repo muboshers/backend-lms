@@ -82,7 +82,6 @@ const GetLocalization = async (req, res) => {
 
     if (!currentLanguage)
       res.status(400).json({ message: "Language not found" });
-    console.log(currentLanguage);
 
     const url = currentLanguage?.language?.translation_file?.url;
 
@@ -106,7 +105,25 @@ const GetLocalization = async (req, res) => {
   }
 };
 
+const GetTeachingCenterLanguages = async (req, res) => {
+  try {
+    if (!req.teachingCenterId)
+      return res.status(400).json({ message: "O'quv markaz topilmadi" });
+
+    const languages = localizationModel.find({
+      teaching_center_id: req.teachingCenterId,
+      is_deleted: false,
+    });
+
+    res.status(200).json(languages);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   CreateLocalization,
   GetLocalization,
+  GetTeachingCenterLanguages,
 };
