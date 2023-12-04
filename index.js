@@ -1,7 +1,11 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
+const { WebSocketServer } = require("ws");
+
+const sockserver = new WebSocketServer({ port: 443 });
 
 const {
   TeachingCentersRouter,
@@ -30,7 +34,22 @@ app.use(
   })
 );
 
-const PORT = process.env.PORT || 5000;
+sockserver.on("connection", (ws) => {
+  console.log("New client connected!");
+  ws.send("connection established");
+  ws.on("close", () => console.log("Client has disconnected!"));
+  ws.on("message", (data) => {
+    sockserver.clients.forEach((client) => {
+      console.log(`distributing message: ${data}`);
+      client.send(`${data}`);
+    });
+  });
+  ws.onerror = function () {
+    console.log("websocket error");
+  };
+});
+
+const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
   res.json({ message: "Developing this app" });
