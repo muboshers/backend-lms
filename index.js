@@ -5,8 +5,6 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const { WebSocketServer } = require("ws");
 
-const sockserver = new WebSocketServer({ port: 443 });
-
 const {
   TeachingCentersRouter,
   FilesRouter,
@@ -34,22 +32,7 @@ app.use(
   })
 );
 
-sockserver.on("connection", (ws) => {
-  console.log("New client connected!");
-  ws.send("connection established");
-  ws.on("close", () => console.log("Client has disconnected!"));
-  ws.on("message", (data) => {
-    sockserver.clients.forEach((client) => {
-      console.log(`distributing message: ${data}`);
-      client.send(`${data}`);
-    });
-  });
-  ws.onerror = function () {
-    console.log("websocket error");
-  };
-});
-
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
   res.json({ message: "Developing this app" });
@@ -72,6 +55,26 @@ mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("DB connected");
-    app.listen(PORT, () => console.log(`Server has running : ${PORT}`));
+
+    const sockserver = new WebSocketServer({
+      server: app.listen(PORT),
+    });
+
+    console.log(`Server is running : ${PORT}`);
+
+    sockserver.on("connection", (ws) => {
+      console.log("New client connected!");
+      ws.send("connection established");
+      ws.on("close", () => console.log("Client has disconnected!"));
+      ws.on("message", (data) => {
+        sockserver.clients.forEach((client) => {
+          console.log(`distributing message: ${data}`);
+          client.send(`${data}`);
+        });
+      });
+      ws.onerror = function () {
+        console.log("websocket error");
+      };
+    });
   })
   .catch((err) => console.log(err));
