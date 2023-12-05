@@ -11,6 +11,10 @@ const teachingCenterSchema = mongoose.Schema(
     address: String,
     location: String,
     phone_number: String,
+    tg_bot_token: {
+      type: String,
+      default: null,
+    },
     logo: {
       type: mongoose.Schema.Types.ObjectId,
       default: null,

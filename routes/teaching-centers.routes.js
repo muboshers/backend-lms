@@ -4,11 +4,15 @@ const {
   deleteTeachingCenterAdminController,
   getTeachingCenterAdminController,
   GetByIdOrMeTeachingCenterController,
+  teachingCenterUpdateController,
 } = require("../controller/teaching-center.controller");
 
 const { validateRequestBody } = require("../middleware");
 
-const { createTeachingCenterAdminSchema } = require("../validation");
+const {
+  createTeachingCenterAdminSchema,
+  updateTeachingCenterSchema,
+} = require("../validation");
 
 const TeachingCentersRouter = require("express").Router();
 
@@ -30,5 +34,10 @@ TeachingCentersRouter.get("/list", getTeachingCenterAdminController);
 TeachingCentersRouter.get("/get/:id", GetByIdOrMeTeachingCenterController);
 
 TeachingCentersRouter.get("/get-me", GetByIdOrMeTeachingCenterController);
+TeachingCentersRouter.patch(
+  "/profile",
+  validateRequestBody(updateTeachingCenterSchema),
+  teachingCenterUpdateController
+);
 
 module.exports = TeachingCentersRouter;

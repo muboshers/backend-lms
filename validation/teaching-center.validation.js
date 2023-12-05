@@ -24,7 +24,20 @@ const updateTeachingCenterAdminSchema = yup.object({
   }),
 });
 
+const updateTeachingCenterSchema = yup.object({
+  body: yup.object({
+    name: yup.string(),
+    address: yup.string(),
+    location: yup.string(),
+    tg_bot_token: yup
+      .string()
+      .max(46, "Telegram bot tokeni 46 ta belgidan iborat bo'lishi kerak"),
+    logo: yup.string(),
+  }),
+});
+
 module.exports = {
   createTeachingCenterAdminSchema,
   updateTeachingCenterAdminSchema,
+  updateTeachingCenterSchema,
 };

@@ -155,7 +155,7 @@ const GetMeController = async (req, res) => {
           },
         },
       })
-      .select("name address location phone_number logo ");
+      .select("name address location phone_number logo tg_bot_token");
 
     if (teachingCenter.is_deleted || !teachingCenter)
       return res

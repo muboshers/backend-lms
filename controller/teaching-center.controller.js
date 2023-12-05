@@ -136,28 +136,25 @@ const teachingCenterUpdateController = async (req, res) => {
     if (!req.teachingCenterId)
       return res.status(400).json({ message: "No no no 😒" });
 
-    const { id } = req.params;
-
-    let currentTeachingCenter = await teacherModel.findById(
+    let currentTeachingCenter = await teachingCenterModel.findById(
       req.teachingCenterId
     );
 
-    if (!mongoose.isValidObjectId(id) || currentTeachingCenter.is_deleted)
+    if (currentTeachingCenter.is_deleted)
       return res
         .status(404)
         .json({ message: "O'quv markaz topilmadi yoki o'chirib tashlangan" });
 
-    const { name, address, location, logo } = req.body;
+    const { name, address, location, logo, tg_bot_token } = req.body;
 
     currentTeachingCenter.logo = logo;
     currentTeachingCenter.address = address;
     currentTeachingCenter.location = location;
     currentTeachingCenter.name = name;
+    currentTeachingCenter.tg_bot_token = tg_bot_token;
 
     await currentTeachingCenter.save();
-    res
-      .status(200)
-      .json({ message: "O'quv markaz sozlamalari mufaqqiyatli yangilandi" });
+    res.status(200).json(currentTeachingCenter);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
