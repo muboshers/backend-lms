@@ -131,6 +131,39 @@ const deleteTeachingCenterAdminController = async (req, res) => {
   }
 };
 
+const teachingCenterUpdateController = async (req, res) => {
+  try {
+    if (!req.teachingCenterId)
+      return res.status(400).json({ message: "No no no 😒" });
+
+    const { id } = req.params;
+
+    let currentTeachingCenter = await teacherModel.findById(
+      req.teachingCenterId
+    );
+
+    if (!mongoose.isValidObjectId(id) || currentTeachingCenter.is_deleted)
+      return res
+        .status(404)
+        .json({ message: "O'quv markaz topilmadi yoki o'chirib tashlangan" });
+
+    const { name, address, location, logo } = req.body;
+
+    currentTeachingCenter.logo = logo;
+    currentTeachingCenter.address = address;
+    currentTeachingCenter.location = location;
+    currentTeachingCenter.name = name;
+
+    await currentTeachingCenter.save();
+    res
+      .status(200)
+      .json({ message: "O'quv markaz sozlamalari mufaqqiyatli yangilandi" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const getTeachingCenterAdminController = async (req, res) => {
   try {
     const { page = 1, limit = 10, search } = req.query;
@@ -231,4 +264,5 @@ module.exports = {
   deleteTeachingCenterAdminController,
   getTeachingCenterAdminController,
   GetByIdOrMeTeachingCenterController,
+  teachingCenterUpdateController,
 };
