@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const { generatePassword } = require("../utils/password");
 
 const teachingCenterModel = require("../model/teaching-center.model");
@@ -8,6 +7,7 @@ const fileModel = require("../model/file.model");
 
 const teacherModel = require("../model/teacher.model");
 const botModel = require("../model/bot.model");
+const newBot = require("../middleware/bot");
 
 const createTeachingCenterAdminController = async (req, res) => {
   try {
@@ -134,7 +134,7 @@ const deleteTeachingCenterAdminController = async (req, res) => {
 
 const teachingCenterUpdateController = async (req, res) => {
   try {
-    let bot_id;
+    let bot;
 
     if (!req.teachingCenterId)
       return res.status(400).json({ message: "No no no 😒" });
@@ -149,14 +149,28 @@ const teachingCenterUpdateController = async (req, res) => {
         .json({ message: "O'quv markaz topilmadi yoki o'chirib tashlangan" });
 
     const { name, address, location, logo, tg_bot_token } = req.body;
-    const existBot = await botModel.findById(currentTeachingCenter?.tg_bot);
+
+    const existBot = await botModel.findById(
+      currentTeachingCenter?.tg_bot?.toString()
+    );
 
     if (existBot) {
       existBot.token = tg_bot_token;
-      bot._id = tg_bot_token;
+      bot = {
+        _id: existBot?._id,
+      };
+      const tg_bot = newBot(tg_bot_token);
+      const res = await tg_bot.setWebHook(
+        `https://lms-management.vercel.app/v1/api/telegram/${tg_bot_token}`
+      );
+      console.log(res);
       await existBot.save();
     } else {
-      
+      const tg_bot = newBot(tg_bot_token);
+      const res = await tg_bot.setWebHook(
+        `https://lms-management.vercel.app/v1/api/telegram/${tg_bot_token}`
+      );
+      console.log(res);
       bot = await botModel.create({
         token: tg_bot_token,
       });
@@ -166,7 +180,7 @@ const teachingCenterUpdateController = async (req, res) => {
     currentTeachingCenter.address = address;
     currentTeachingCenter.location = location;
     currentTeachingCenter.name = name;
-    currentTeachingCenter.tg_bot = bot._id;
+    currentTeachingCenter.tg_bot = bot?._id;
     await currentTeachingCenter.save();
     res.status(200).json(currentTeachingCenter);
   } catch (error) {

@@ -109,7 +109,7 @@ const GetMeController = async (req, res) => {
     if (req.teacherId) {
       const teacher = await teacherModel.findById(req.teacherId).populate({
         path: "teaching_center_id",
-        select: ["name", "address", "logo", "location","tg_bot"],
+        select: ["name", "address", "logo", "location"],
         populate: {
           path: "logo",
           select: ["url"],
@@ -155,7 +155,15 @@ const GetMeController = async (req, res) => {
           },
         },
       })
-      .select("name address location phone_number logo tg_bot");
+      .populate({
+        path: "tg_bot",
+        match: {
+          is_deleted: {
+            $ne: true,
+          },
+        },
+      })
+      .select("name address location phone_number logo ");
 
     if (teachingCenter.is_deleted || !teachingCenter)
       return res
