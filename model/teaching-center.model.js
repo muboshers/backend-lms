@@ -18,7 +18,7 @@ const teachingCenterSchema = mongoose.Schema(
     },
     logo: {
       type: mongoose.Schema.Types.ObjectId,
-      default: null,
+      default: "",
       ref: "file",
     },
     login: String,

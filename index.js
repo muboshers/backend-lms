@@ -49,13 +49,12 @@ app.get("/", async (req, res) => {
   res.json({ message: "Developing this app" });
 });
 
-const isTestAuth = (req, res, next) => {
-  req.teachingCenterId = "653f4a4cc1a6a6e2d" + "5a14672";
-  next();
-};
-
 app.use("/v1/api/telegram", TgBotRoutes);
-app.use("/v1/api/teaching-center", isTestAuth, TeachingCentersRouter);
+app.use(
+  "/v1/api/teaching-center",
+  TEACHING_CENTER_OR_TEACHERS,
+  TeachingCentersRouter
+);
 app.use("/v1/api/file", TEACHING_CENTER_OR_TEACHERS, FilesRouter);
 app.use("/v1/api/auth", AuthRouter);
 app.use("/v1/api/teacher", TEACHING_CENTER_OR_TEACHERS, TeacherRouter);

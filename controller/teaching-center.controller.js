@@ -154,7 +154,7 @@ const teachingCenterUpdateController = async (req, res) => {
       currentTeachingCenter?.tg_bot?.toString()
     );
 
-    if (existBot) {
+    if (existBot && tg_bot_token) {
       existBot.token = tg_bot_token;
       bot = {
         _id: existBot?._id,
@@ -163,19 +163,16 @@ const teachingCenterUpdateController = async (req, res) => {
       const res = await tg_bot.setWebHook(
         `https://lms-management.vercel.app/v1/api/telegram/${tg_bot_token}?max_connections=140`
       );
-      console.log(res);
       await existBot.save();
-    } else {
+    } else if (tg_bot_token) {
       const tg_bot = newBot(tg_bot_token);
       const res = await tg_bot.setWebHook(
         `https://lms-management.vercel.app/v1/api/telegram/${tg_bot_token}?max_connections=140`
       );
-      console.log(res);
       bot = await botModel.create({
         token: tg_bot_token,
       });
     }
-
     currentTeachingCenter.logo = logo;
     currentTeachingCenter.address = address;
     currentTeachingCenter.location = location;
