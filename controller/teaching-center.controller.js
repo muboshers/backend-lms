@@ -7,6 +7,7 @@ const teachingCenterModel = require("../model/teaching-center.model");
 const fileModel = require("../model/file.model");
 
 const teacherModel = require("../model/teacher.model");
+const botModel = require("../model/bot.model");
 
 const createTeachingCenterAdminController = async (req, res) => {
   try {
@@ -133,6 +134,8 @@ const deleteTeachingCenterAdminController = async (req, res) => {
 
 const teachingCenterUpdateController = async (req, res) => {
   try {
+    let bot_id;
+
     if (!req.teachingCenterId)
       return res.status(400).json({ message: "No no no 😒" });
 
@@ -146,13 +149,24 @@ const teachingCenterUpdateController = async (req, res) => {
         .json({ message: "O'quv markaz topilmadi yoki o'chirib tashlangan" });
 
     const { name, address, location, logo, tg_bot_token } = req.body;
+    const existBot = await botModel.findById(currentTeachingCenter?.tg_bot);
+
+    if (existBot) {
+      existBot.token = tg_bot_token;
+      bot._id = tg_bot_token;
+      await existBot.save();
+    } else {
+      
+      bot = await botModel.create({
+        token: tg_bot_token,
+      });
+    }
 
     currentTeachingCenter.logo = logo;
     currentTeachingCenter.address = address;
     currentTeachingCenter.location = location;
     currentTeachingCenter.name = name;
-    currentTeachingCenter.tg_bot_token = tg_bot_token;
-
+    currentTeachingCenter.tg_bot = bot._id;
     await currentTeachingCenter.save();
     res.status(200).json(currentTeachingCenter);
   } catch (error) {

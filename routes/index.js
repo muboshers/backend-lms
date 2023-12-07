@@ -6,6 +6,8 @@ const TopicRouter = require("./topic.routes");
 const PupilsRouter = require("./pupils.routes");
 const TeachingCentersRouter = require("./teaching-centers.routes");
 const LocalizationRouter = require("./localization.routes");
+const TgBotRoutes = require("./tg-bot.routes");
+
 module.exports = {
   FilesRouter,
   LocalizationRouter,
@@ -15,4 +17,5 @@ module.exports = {
   GroupRouter,
   TopicRouter,
   PupilsRouter,
+  TgBotRoutes,
 };
