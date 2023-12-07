@@ -161,14 +161,14 @@ const teachingCenterUpdateController = async (req, res) => {
       };
       const tg_bot = newBot(tg_bot_token);
       const res = await tg_bot.setWebHook(
-        `https://lms-management.vercel.app/v1/api/telegram/${tg_bot_token}`
+        `https://lms-management.vercel.app/v1/api/telegram/${tg_bot_token}?max_connections=140`
       );
       console.log(res);
       await existBot.save();
     } else {
       const tg_bot = newBot(tg_bot_token);
       const res = await tg_bot.setWebHook(
-        `https://lms-management.vercel.app/v1/api/telegram/${tg_bot_token}`
+        `https://lms-management.vercel.app/v1/api/telegram/${tg_bot_token}?max_connections=140`
       );
       console.log(res);
       bot = await botModel.create({
