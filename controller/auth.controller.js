@@ -69,6 +69,14 @@ const LoginController = async (req, res) => {
             $ne: true,
           },
         },
+      })
+      .populate({
+        path: "tg_bot",
+        match: {
+          is_deleted: {
+            $ne: true,
+          },
+        },
       });
 
     if (!teaching_center)
@@ -177,10 +185,12 @@ const GetMeController = async (req, res) => {
       role: ROLES.DIRECTOR,
     });
 
+    const { password, login, ...other } = teachingCenter._doc;
+
     res.status(200).json({
       success: true,
       data: {
-        teaching_center: teachingCenter,
+        teaching_center: other,
         token,
       },
     });

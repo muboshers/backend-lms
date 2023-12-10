@@ -148,31 +148,8 @@ const teachingCenterUpdateController = async (req, res) => {
         .status(404)
         .json({ message: "O'quv markaz topilmadi yoki o'chirib tashlangan" });
 
-    const { name, address, location, logo, tg_bot_token } = req.body;
+    const { name, address, location, logo } = req.body;
 
-    const existBot = await botModel.findById(
-      currentTeachingCenter?.tg_bot?.toString()
-    );
-
-    if (existBot && tg_bot_token) {
-      existBot.token = tg_bot_token;
-      bot = {
-        _id: existBot?._id,
-      };
-      const tg_bot = newBot(tg_bot_token);
-      const res = await tg_bot.setWebHook(
-        `https://lms-management.vercel.app/v1/api/telegram/${tg_bot_token}?max_connections=140`
-      );
-      await existBot.save();
-    } else if (tg_bot_token) {
-      const tg_bot = newBot(tg_bot_token);
-      const res = await tg_bot.setWebHook(
-        `https://lms-management.vercel.app/v1/api/telegram/${tg_bot_token}?max_connections=140`
-      );
-      bot = await botModel.create({
-        token: tg_bot_token,
-      });
-    }
     currentTeachingCenter.logo = logo;
     currentTeachingCenter.address = address;
     currentTeachingCenter.location = location;
@@ -182,6 +159,66 @@ const teachingCenterUpdateController = async (req, res) => {
     res.status(200).json(currentTeachingCenter);
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const UpdateTeachingCenterTgBotController = async (req, res) => {
+  try {
+    const { tg_bot_token, greeting_message } = req.body;
+
+    if (!req.teachingCenterId)
+      return res.status(400).json({ message: "No no no 😒😒" });
+
+    if (!greeting_message.includes("{{tg_user_name}}"))
+      return res.status(400).json({ message: "No no no 😒😒" });
+
+    let currentTeachingCenter = await teachingCenterModel.findById(
+      req.teachingCenterId
+    );
+
+    if (!currentTeachingCenter || currentTeachingCenter.is_deleted)
+      return res
+        .status(400)
+        .json({ message: "O'quv markaz topilmadi yoki o'chirib tashlangan" });
+
+    let existBot = await botModel.findById(
+      currentTeachingCenter?.tg_bot?.toString()
+    );
+    let isChangeBot = existBot.token !== tg_bot_token;
+    if (existBot) {
+      if (isChangeBot) {
+        const oldTgBot = newBot(existBot.token);
+
+        await oldTgBot.deleteWebHook();
+
+        const newTgBot = newBot(tg_bot_token);
+
+        await newTgBot.setWebHook(
+          `https://lms-management.vercel.app/v1/api/telegram/${tg_bot_token}?max_connections=140`
+        );
+      }
+
+      existBot.token = tg_bot_token;
+      existBot.greeting_message = greeting_message;
+      await existBot.save();
+      return res.status(200).json({ message: "Tg bot succesfully joined" });
+    } else {
+      const bot = await botModel.create({
+        token: tg_bot_token,
+        greeting_message,
+      });
+
+      const tg_bot = newBot(tg_bot_token);
+      tg_bot.setWebHook(
+        `https://lms-management.vercel.app/v1/api/telegram/${tg_bot_token}?max_connections=140`
+      );
+      currentTeachingCenter.tg_bot = bot._id.toString();
+      await currentTeachingCenter.save();
+      return res.status(200).json({ message: "Tg bot succesfully joined" });
+    }
+  } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: error.message });
   }
 };
@@ -287,4 +324,5 @@ module.exports = {
   getTeachingCenterAdminController,
   GetByIdOrMeTeachingCenterController,
   teachingCenterUpdateController,
+  UpdateTeachingCenterTgBotController,
 };

@@ -2,9 +2,13 @@ const mongoose = require("mongoose");
 
 const tgUserSchema = mongoose.Schema(
   {
-    firstName: String,
-    lastName: String,
-    profile_image: String,
+    first_name: String,
+    last_name: String,
+    username: String,
+    bot_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "bots",
+    },
     chat_id: String,
     is_deleted: {
       type: Boolean,

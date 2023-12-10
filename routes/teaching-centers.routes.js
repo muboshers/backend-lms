@@ -5,6 +5,7 @@ const {
   getTeachingCenterAdminController,
   GetByIdOrMeTeachingCenterController,
   teachingCenterUpdateController,
+  UpdateTeachingCenterTgBotController,
 } = require("../controller/teaching-center.controller");
 
 const { validateRequestBody } = require("../middleware");
@@ -39,5 +40,5 @@ TeachingCentersRouter.patch(
   validateRequestBody(updateTeachingCenterSchema),
   teachingCenterUpdateController
 );
-
+TeachingCentersRouter.patch("/update-tg", UpdateTeachingCenterTgBotController);
 module.exports = TeachingCentersRouter;
