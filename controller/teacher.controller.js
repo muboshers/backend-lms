@@ -15,7 +15,7 @@ const CreateTeacherController = async (req, res) => {
 
     let degreeIDS = [];
 
-    const { name, age, phone_number, login, password, degree } = req.body;
+    const { name, age, phone_number, login, password, degree = [] } = req.body;
 
     const isExistTeachingCenterLoginName = await teachingCenterModel.findOne({
       login,
@@ -150,36 +150,69 @@ const GetTeachersListController = async (req, res) => {
     if (!req.teachingCenterId)
       return res.status(400).json({ message: "Invalid credintials" });
 
-    const { page = 1, limit = 10, search } = req.query;
-
-    const skip = (page - 1) * limit;
-
-    let query = teacherModel
+    const PAGE_SIZE = parseInt(req.query.limit) || 15;
+    const page = parseInt(req.query.page) || 1;
+    const searchQuery = req.query.search || "";
+    const totalCount = await teacherModel
       .find({
-        is_deleted: false,
-        teaching_center_id: req.teachingCenterId,
+        teaching_center_id: new mongoose.Types.ObjectId(req.teachingCenterId),
+        $or: [{ name: { $regex: searchQuery, $options: "i" } }],
       })
-      .select("name phone_number age teaching_center_id");
+      .countDocuments();
 
-    if (search) {
-      query = query
-        .where("teaching_center_id")
-        .equals(req.teachingCenterId)
-        .where("is_deleted")
-        .equals(false)
-        .where("name")
-        .regex(new RegExp(search, "i"))
-        .select("name phone_number age teaching_center_id");
-    }
+    const teachersList = await teacherModel.aggregate([
+      {
+        $match: {
+          teaching_center_id: new mongoose.Types.ObjectId(req.teachingCenterId),
+          $or: [{ name: { $regex: searchQuery, $options: "i" } }],
+        },
+      },
+      {
+        $lookup: {
+          from: "topics",
+          localField: "_id",
+          foreignField: "teacher_id",
+          as: "topics",
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          age: 1,
+          phone_number: 1,
+          pupils_count: { $size: "$topics.pupils" },
+          teacher_income: {
+            $sum: {
+              $map: {
+                input: "$topics.pupils",
+                as: "pupilCount",
+                in: {
+                  $divide: [
+                    { $multiply: ["$$pupilCount", "$topics.price"] },
+                    { $ifNull: ["$topics.percentage", 1] },
+                  ],
+                },
+              },
+            },
+          },
+        },
+      },
+      {
+        $skip: (page - 1) * PAGE_SIZE,
+      },
+      {
+        $limit: PAGE_SIZE,
+      },
+    ]);
 
-    const teachersList = await query.skip(skip).limit(limit).exec();
-
-    const count = await teacherModel.countDocuments(query.getFilter());
+    const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
     res.status(200).json({
       data: teachersList,
-      totalPages: Math.ceil(count / limit),
-      currentPage: page,
+      totalPages: Math.ceil(totalCount / PAGE_SIZE),
+      currentPage: typeof page === "number" ? page : 0,
+      totalCount,
     });
   } catch (error) {
     console.log(error);
