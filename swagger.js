@@ -8,11 +8,11 @@ const doc = {
     },
     servers: [
         {
-            url: 'http://localhost:5000/v1/api/',
+            url: 'http://localhost:5000/',
             description: 'Development server',
         },
         {
-            url: 'https://lms-management.vercel.app/v1/api',
+            url: 'https://lms-management.vercel.app/',
             description: 'Production server',
         }
     ],
