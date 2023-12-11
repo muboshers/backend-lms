@@ -185,10 +185,10 @@ const UpdateTeachingCenterTgBotController = async (req, res) => {
     let existBot = await botModel.findById(
       currentTeachingCenter?.tg_bot?.toString()
     );
-    let isChangeBot = existBot.token !== tg_bot_token;
+    let isChangeBot = existBot?.token !== tg_bot_token;
     if (existBot) {
       if (isChangeBot) {
-        const oldTgBot = newBot(existBot.token);
+        const oldTgBot = newBot(existBot?.token);
 
         await oldTgBot.deleteWebHook();
 
@@ -218,7 +218,7 @@ const UpdateTeachingCenterTgBotController = async (req, res) => {
       return res.status(200).json({ message: "Tg bot succesfully joined" });
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
