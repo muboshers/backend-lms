@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const {WebSocketServer} = require("ws");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
+
 const {TEACHING_CENTER_OR_TEACHERS} = require("./middleware");
 const {
     TeachingCentersRouter,
@@ -17,9 +18,11 @@ const {
     LocalizationRouter,
     TgBotRoutes,
 } = require("./routes");
+const swaggerOptions = require("./swagger");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const isVercel = process.env.HOST?.includes('vercel')
 
 app.use(express.json());
 app.use(express.static("./public"));
@@ -47,7 +50,7 @@ app.use("/v1/api/localization", TEACHING_CENTER_OR_TEACHERS, LocalizationRouter)
 
 
 // Serve Swagger documentation
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(isVercel ? swaggerOptions : swaggerDocument, {
     customCssUrl:
         'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css',
 }));
