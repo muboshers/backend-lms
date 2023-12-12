@@ -9,7 +9,7 @@ const CreateUserFromTelegram = async (req, res) => {
     try {
         // #swagger.tags = ['Telegram Bot']
         // #swagger.summary = "Create telegram user"
-        // #swagger.hide = true
+        // #swagger.ignore = true
         const {
             id: chat_id,
             first_name,

@@ -19,7 +19,7 @@ const {
 } = require("./routes");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static("./public"));
@@ -55,7 +55,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
 
 // Handle root route
 app.get("/", (req, res) => {
-    // #swagger.
+    // #swagger.ignore = true
     res.json({message: "Developing this app"});
 });
 

@@ -5,7 +5,7 @@ const doc = {
         title: 'EDU_HUB LMS Software Limited',
         description: 'Learning Management easy peasy with EDU_HUB LMS Software Limited'
     },
-    host: process.env.URL,
+    schemes: ["http","https"],
     tags: [
         {
             name: 'Authentication',

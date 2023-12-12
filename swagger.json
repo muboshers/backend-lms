@@ -5,7 +5,7 @@
     "description": "Learning Management easy peasy with EDU_HUB LMS Software Limited",
     "version": "1.0.0"
   },
-  "host": "localhost:5000",
+  "host": "localhost:3000",
   "basePath": "/",
   "tags": [
     {
@@ -46,7 +46,8 @@
     }
   ],
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "securityDefinitions": {
     "apiKeyAuth": {
@@ -57,53 +58,6 @@
     }
   },
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/v1/api/telegram/{bot_token}": {
-      "post": {
-        "tags": [
-          "Telegram Bot"
-        ],
-        "summary": "Create telegram user",
-        "description": "",
-        "parameters": [
-          {
-            "name": "bot_token",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/v1/api/teaching-center/create": {
       "post": {
         "tags": [
