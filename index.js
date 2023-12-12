@@ -18,12 +18,11 @@ const {
     LocalizationRouter,
     TgBotRoutes,
 } = require("./routes");
-const swaggerOptions = require("./swagger");
+const swaggerOptions = require("./swagger-docs");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const isVercel = process.env.HOST?.includes('vercel')
-
+const isVercel = process.env.HOST.includes('vercel') || ''
 app.use(express.json());
 app.use(express.static("./public"));
 app.use(
