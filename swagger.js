@@ -1,34 +1,55 @@
-const swaggerAutogen = require('swagger-autogen')({openapi: '3.1.0'});
-
+const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
     info: {
         title: 'EDU_HUB LMS Software Limited',
         description: 'Learning Management easy peasy with EDU_HUB LMS Software Limited'
     },
-    servers: [
-        {
-            url: 'http://localhost:5000/',
-            description: 'Development server',
-        },
-        {
-            url: 'https://lms-management.vercel.app/',
-            description: 'Production server',
-        }
-    ],
+    host: process.env.URL,
     tags: [
         {
             name: 'Authentication',
             description: 'Authentication endpoint for manage user'
         },
+        {
+            name: 'Files',
+            description: 'File upload endpoint'
+        },
+        {
+            name: 'Pupils',
+            description: 'Pupils endpoint'
+        },
+        {
+            name: 'Teaching Center',
+            description: "Teaching center dashboard",
+        },
+        {
+            name: 'Telegram Bot',
+            description: "Telegram bot endpoint",
+        },
+        {
+            name: 'Topic',
+            description: "Topic endpoint",
+        },
+        {
+            name: 'Teachers',
+            description: "Teachers endpoint for teaching center",
+        },
+        {
+            name: 'Groups',
+            description: "Groups endpoint for teaching center",
+        },
+        {
+            name: 'Localization',
+            description: "Localization endpoint",
+        }
     ],
-    securityDefinitions: {},
-    components: {
-        securitySchemes: {
-            bearerAuth: {
-                type: 'http',
-                scheme: 'bearer'
-            }
+    securityDefinitions: {
+        apiKeyAuth: {
+            type: 'apiKey',
+            in: 'header',
+            name: 'Authorization',
+            description: 'Some description...'
         }
     }
 };

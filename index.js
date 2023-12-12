@@ -55,6 +55,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
 
 // Handle root route
 app.get("/", (req, res) => {
+    // #swagger.
     res.json({message: "Developing this app"});
 });
 
