@@ -20,7 +20,7 @@ const CreateTeacherController = async (req, res) => {
 
         let degreeIDS = [];
 
-        const {name, age, phone_number, login, password, degree = []} = req.body;
+        const {name, age, phone_number, login, password,} = req.body;
 
         const isExistTeachingCenterLoginName = await teachingCenterModel.findOne({
             login,
@@ -34,16 +34,6 @@ const CreateTeacherController = async (req, res) => {
                 message: "This login or phone number name alrady exist please write another login",
             });
 
-        for await (let degre of degree) {
-            const cert = await degreesModel.create({
-                key: degre.key,
-                value: degre.value,
-                image: degre.image_id,
-            });
-
-            degreeIDS = [...degreeIDS, cert._id];
-        }
-
         const hashedPassword = await generatePassword(password);
 
         await teacherModel.create({
@@ -51,7 +41,6 @@ const CreateTeacherController = async (req, res) => {
             phone_number,
             login,
             age,
-            degree: degreeIDS,
             password: hashedPassword,
             teaching_center_id: req.teachingCenterId,
         });
@@ -98,14 +87,6 @@ const TeacherUpdateController = async (req, res) => {
 
         if (req.body.password) {
             other.password = await generatePassword(req.body.password);
-        }
-
-        for await (let degre of degree) {
-            await degreesModel.findByIdAndUpdate(degre._id, {
-                $set: {
-                    ...degre,
-                },
-            });
         }
 
         await teacherModel.findByIdAndUpdate(id, {

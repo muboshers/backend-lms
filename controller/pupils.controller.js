@@ -10,13 +10,12 @@ const CreatePupilsController = async (req, res) => {
         }] */
         if (!req.teachingCenterId) throw new Error("Un authorized");
 
-        const {name, address, age, parent_contact_information} = req.body;
+        const {name, age, parent_contact_information} = req.body;
 
         await pupilModel.create({
             name,
             age,
             parent_contact_information,
-            address,
             teaching_center_id: req.teachingCenterId,
         });
 
@@ -103,16 +102,17 @@ const GetPupilsListPupilsController = async (req, res) => {
         /* #swagger.security = [{
             "apiKeyAuth": []
         }] */
-        const {page = 1, limit = 10, search} = req.query;
+        const {page = 1, limit = 15, search} = req.query;
 
         if (!req.teachingCenterId) throw new Error("Un authorized");
 
         const skip = (page - 1) * limit;
 
         let query = pupilModel.find({
-            teaching_center_id: req.teachingCenterId,
+            teaching_center_id: new mongoose.Types.ObjectId(req.teachingCenterId),
             is_deleted: false,
         });
+
 
         if (search) {
             query = query
@@ -127,12 +127,14 @@ const GetPupilsListPupilsController = async (req, res) => {
 
         const pupilsList = await query.skip(skip).limit(limit).exec();
 
-        const count = await teacherModel.countDocuments(query.getFilter());
+        const count = await pupilModel.countDocuments(query.getFilter());
+
 
         res.status(200).json({
             data: pupilsList,
             totalPages: Math.ceil(count / limit),
             currentPage: page,
+            totalCount: count
         });
     } catch (error) {
         console.log(error);

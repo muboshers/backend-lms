@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "api-docs": "node ./swagger.js",
+    "api-docs": "node swagger.js",
     "deploy": "flyctl deploy"
   },
   "keywords": [
