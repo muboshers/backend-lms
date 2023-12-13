@@ -4,15 +4,12 @@ const {default: mongoose} = require("mongoose");
 const fileModel = require("../model/file.model");
 const topicModel = require("../model/topic.model");
 
-async function topicUpdate(topics, res) {
-    // #swagger.tags = ['Groups']
-    // #swagger.summary = "Group topic update"
-
-    /* #swagger.security = [{
-             "apiKeyAuth": []
-     }] */
+async function topicUpdate(res, topics) {
 
     const topicIds = [];
+
+    console.log(topics)
+
     for await (let topic of topics) {
         const {
             teacher_id,
@@ -85,7 +82,7 @@ const CreateGroupController = async (req, res) => {
                 message: "This group alrady exist please create another group",
             });
 
-        const topicIds = topicUpdate(res, topics);
+        const topicIds = await topicUpdate(res, topics);
 
         await groupModel.create({
             name,
@@ -137,7 +134,7 @@ const UpdateGroupController = async (req, res) => {
             });
         }
 
-        const topicIds = await topicUpdate(topics, res);
+        const topicIds = await topicUpdate(res, topics);
 
         currentGroup.name = name ?? currentGroup?.name;
         currentGroup.image = image ?? currentGroup?.image;

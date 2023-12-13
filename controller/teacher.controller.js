@@ -24,13 +24,14 @@ const CreateTeacherController = async (req, res) => {
 
         const isExistTeachingCenterLoginName = await teachingCenterModel.findOne({
             login,
+            phone_number
         });
 
-        const isExistTeacherLoginName = await teacherModel.findOne({login});
+        const isExistTeacher = await teacherModel.find({login, phone_number});
 
-        if (isExistTeacherLoginName || isExistTeachingCenterLoginName)
+        if (isExistTeacher.length > 0 || isExistTeachingCenterLoginName)
             return res.status(500).json({
-                message: "This login name alrady exist please write another login",
+                message: "This login or phone number name alrady exist please write another login",
             });
 
         for await (let degre of degree) {
@@ -93,7 +94,7 @@ const TeacherUpdateController = async (req, res) => {
                 message: "This teacher  deleted you can not update information",
             });
 
-        let {degree, ...other} = req.body;
+        let {degree = [], ...other} = req.body;
 
         if (req.body.password) {
             other.password = await generatePassword(req.body.password);
@@ -161,84 +162,118 @@ const TeacherDeleteController = async (req, res) => {
 };
 
 const GetTeachersListController = async (req, res) => {
-    try {
-        // #swagger.tags = ['Teachers']
-        // #swagger.summary = "Get a teacher list"
-        /* #swagger.security = [{
-            "apiKeyAuth": []
-        }] */
-        if (!req.teachingCenterId)
-            return res.status(400).json({message: "Invalid credintials"});
+        try {
+            // #swagger.tags = ['Teachers']
+            // #swagger.summary = "Get a teacher list"
+            /* #swagger.security = [{
+                "apiKeyAuth": []
+            }] */
+            if (!req.teachingCenterId)
+                return res.status(400).json({message: "Invalid credintials"});
 
-        const PAGE_SIZE = parseInt(req.query.limit) || 15;
-        const page = parseInt(req.query.page) || 1;
-        const searchQuery = req.query.search || "";
-        const totalCount = await teacherModel
-            .find({
-                teaching_center_id: new mongoose.Types.ObjectId(req.teachingCenterId),
-                $or: [{name: {$regex: searchQuery, $options: "i"}}],
-            })
-            .countDocuments();
-
-        const teachersList = await teacherModel.aggregate([
-            {
-                $match: {
+            const PAGE_SIZE = parseInt(req.query.limit) || 15;
+            const page = parseInt(req.query.page) || 1;
+            const searchQuery = req.query.search || "";
+            const totalCount = await teacherModel
+                .find({
                     teaching_center_id: new mongoose.Types.ObjectId(req.teachingCenterId),
+                    is_deleted: false,
                     $or: [{name: {$regex: searchQuery, $options: "i"}}],
+                })
+                .countDocuments();
+
+            const teachersList = await teacherModel.aggregate([
+                {
+                    $match: {
+                        teaching_center_id: new mongoose.Types.ObjectId(req.teachingCenterId),
+                        is_deleted: false,
+                        $or: [{name: {$regex: searchQuery, $options: 'i'}}],
+                    },
                 },
-            },
-            {
-                $lookup: {
-                    from: "topics",
-                    localField: "_id",
-                    foreignField: "teacher_id",
-                    as: "topics",
+                {
+                    $lookup: {
+                        from: 'topics',
+                        localField: '_id',
+                        foreignField: 'teacher_id',
+                        as: 'topics',
+                    },
                 },
-            },
-            {
-                $project: {
-                    _id: 1,
-                    name: 1,
-                    age: 1,
-                    phone_number: 1,
-                    pupils_count: {$size: "$topics.pupils"},
-                    teacher_income: {
-                        $sum: {
-                            $map: {
-                                input: "$topics.pupils",
-                                as: "pupilCount",
-                                in: {
-                                    $divide: [
-                                        {$multiply: ["$$pupilCount", "$topics.price"]},
-                                        {$ifNull: ["$topics.percentage", 1]},
-                                    ],
+                {
+                    $project: {
+                        _id: 1,
+                        name: 1,
+                        age: 1,
+                        phone_number: 1,
+                        login: 1,
+                        pupils_count: {
+                            $sum: {
+                                $map: {
+                                    input: '$topics',
+                                    as: 'topic',
+                                    in: {
+                                        $cond: {
+                                            if: {$isArray: '$$topic.pupils'},
+                                            then: {$size: '$$topic.pupils'},
+                                            else: 0,
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                        teacher_income: {
+                            $sum: {
+                                $map: {
+                                    input: {
+                                        $filter: {
+                                            input: '$topics',
+                                            as: 'topic',
+                                            cond: {$isArray: '$$topic.pupils'},
+                                        },
+                                    },
+                                    as: 'topic',
+                                    in: {
+                                        $multiply: [
+                                            {$size: '$$topic.pupils'},
+                                            {
+                                                $multiply: [
+                                                    {$ifNull: ['$$topic.price', 100]},
+                                                    {
+                                                        $divide: [
+                                                            {$ifNull: ['$$topic.percentage', 1]},
+                                                            100,
+                                                        ],
+                                                    },
+                                                ],
+                                            },
+                                        ],
+                                    },
                                 },
                             },
                         },
                     },
                 },
-            },
-            {
-                $skip: (page - 1) * PAGE_SIZE,
-            },
-            {
-                $limit: PAGE_SIZE,
-            },
-        ]);
+                {
+                    $skip: (page - 1) * PAGE_SIZE,
+                },
+                {
+                    $limit: PAGE_SIZE,
+                }
+            ]);
 
-        const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
-        res.status(200).json({
-            data: teachersList,
-            totalPages: Math.ceil(totalCount / PAGE_SIZE),
-            currentPage: typeof page === "number" ? page : 0,
-            totalCount,
-        });
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({message: error.message});
+            res.status(200).json({
+                data: teachersList,
+                totalPages: Math.ceil(totalCount / PAGE_SIZE),
+                currentPage: typeof page === "number" ? page : 0,
+                totalCount,
+            });
+        } catch
+            (error) {
+            console.log(error);
+            return res.status(500).json({message: error.message});
+        }
     }
-};
+;
 
 module.exports = {
     CreateTeacherController,
