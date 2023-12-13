@@ -66,7 +66,15 @@ const UpdateTopicController = async (req, res) => {
 
         const {id} = req.params;
 
-        const {price, sections, teacher_id} = req.body;
+        const {
+            price,
+            teacher_id,
+            during_month,
+            week_days,
+            percentage,
+            time_of_day,
+            start_date,
+        } = req.body;
 
         if (!mongoose.isValidObjectId(teacher_id) || !mongoose.isValidObjectId(id))
             return res.status(400).json({message: "Invalid  id"});
@@ -87,7 +95,11 @@ const UpdateTopicController = async (req, res) => {
         if (currentTopic?.is_deleted)
             throw new Error("This topic removed you can not update this topics");
         currentTopic.price = price ?? currentTopic?.price;
-        currentTopic.sections = sections ?? currentTopic?.sections;
+        currentTopic.during_month = during_month ?? currentTopic?.during_month;
+        currentTopic.week_days = week_days ?? currentTopic?.week_days;
+        currentTopic.percentage = percentage ?? currentTopic?.percentage;
+        currentTopic.time_of_day = time_of_day ?? currentTopic?.time_of_day;
+        currentTopic.start_date = start_date ?? currentTopic?.start_date;
         await currentTopic.save();
         res.status(200).json({message: "Topic update"});
     } catch (error) {
