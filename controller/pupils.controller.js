@@ -1,5 +1,7 @@
 const {default: mongoose} = require("mongoose");
 const pupilModel = require("../model/pupils.model");
+const topicModel = require("../model/topic.model");
+const teachingCenterModel = require("../model/teaching-center.model");
 
 const CreatePupilsController = async (req, res) => {
     try {
@@ -10,14 +12,26 @@ const CreatePupilsController = async (req, res) => {
         }] */
         if (!req.teachingCenterId) throw new Error("Un authorized");
 
-        const {name, age, parent_contact_information} = req.body;
+        const {name, age, parent_contact_information, topic_id} = req.body;
 
-        await pupilModel.create({
+        const count = await pupilModel.countDocuments({parent_contact_information});
+
+        if (count === 1)
+            return res.status(400).json({message: "User is already exist"})
+
+        const pupils = await pupilModel.create({
             name,
             age,
             parent_contact_information,
             teaching_center_id: req.teachingCenterId,
         });
+
+        if (topic_id) {
+            await topicModel.findOneAndUpdate(
+                {_id: topic_id},
+                {$addToSet: {pupils: pupils?._id}},
+            );
+        }
 
         res.status(200).json({message: "Pupils created"});
     } catch (error) {
@@ -73,6 +87,8 @@ const DeletePupilsController = async (req, res) => {
         }] */
         const {id} = req.params;
 
+        const {topic_id = null} = req.body;
+
         if (!req.teachingCenterId) throw new Error("Un authorized");
 
         if (!mongoose.isValidObjectId(id))
@@ -85,6 +101,13 @@ const DeletePupilsController = async (req, res) => {
 
         if (currentPupils?.teaching_center_id.toString() !== req.teachingCenterId)
             throw new Error("You update your own students information");
+
+        if (topic_id) {
+            await topicModel.findOneAndUpdate(
+                {_id: topic_id},
+                {$pop: {pupils: id}},
+            );
+        }
 
         currentPupils.is_deleted = true;
         await currentPupils.save();
@@ -142,9 +165,64 @@ const GetPupilsListPupilsController = async (req, res) => {
     }
 };
 
+
+const GetPupilsByTopicId = async (req, res) => {
+    try {
+        // #swagger.tags = ['Pupils']
+        // #swagger.summary = "Get pupils by topic id"
+        /* #swagger.security = [{
+            "apiKeyAuth": []
+        }] */
+
+        const {topicId} = req.params;
+
+        const {page = 1, limit = 10, search} = req.query;
+
+        const skip = (page - 1) * limit;
+
+        if (!req.teachingCenterId)
+            return res.status(400).json({message: "Invalid teaching center id"})
+
+        if (!mongoose.isValidObjectId(topicId))
+            return res.status(404).json({message: "Invalid topic id"})
+
+        const currentTopic = await topicModel.findById(topicId)
+
+        if (!currentTopic || currentTopic.is_deleted)
+            return res.status(404).json({message: "Topic not exist"})
+
+        let query = pupilModel.find({
+            _id: {$in: currentTopic.pupils},
+            is_deleted: false,
+        });
+
+        if (search) {
+            query = query
+                .where("is_deleted")
+                .equals(false)
+                .where("name")
+                .regex(new RegExp(search, "i"))
+        }
+        const pupilsList = await query.skip(skip).limit(limit).exec();
+
+        const count = await pupilModel.countDocuments(query.getFilter());
+
+        res.status(200).json({
+            data: pupilsList,
+            totalPages: Math.ceil(count / limit),
+            currentPage: page,
+            totalCount: count,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message});
+    }
+}
+
 module.exports = {
     CreatePupilsController,
     UpdatePupilsController,
     DeletePupilsController,
     GetPupilsListPupilsController,
+    GetPupilsByTopicId,
 };

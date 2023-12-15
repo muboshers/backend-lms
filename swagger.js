@@ -26,10 +26,6 @@ const doc = {
             description: "Teaching center dashboard",
         },
         {
-            name: 'Telegram Bot',
-            description: "Telegram bot endpoint",
-        },
-        {
             name: 'Topic',
             description: "Topic endpoint",
         },

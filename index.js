@@ -6,7 +6,10 @@ const {WebSocketServer} = require("ws");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 
+// Middleware
 const {TEACHING_CENTER_OR_TEACHERS} = require("./middleware");
+
+// Routes
 const {
     TeachingCentersRouter,
     FilesRouter,
@@ -18,23 +21,20 @@ const {
     LocalizationRouter,
     TgBotRoutes,
 } = require("./routes");
-const swaggerOptions = require("./swagger-docs");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const isVercel = process.env.HOST.includes('vercel') || ''
+
 app.use(express.json());
 app.use(express.static("./public"));
-app.use(
-    cors({
-        origin: [
-            "http://127.0.0.1:3030",
-            "http://localhost:3030",
-            "https://app-lms-dashboard.vercel.app",
-        ],
-        methods: ["*"],
-    })
-);
+app.use(cors({
+    origin: [
+        "http://127.0.0.1:3030",
+        "http://localhost:3030",
+        "https://app-lms-dashboard.vercel.app",
+    ],
+    methods: ["*"],
+}));
 
 // Define API routes
 app.use("/v1/api/telegram", TgBotRoutes);
@@ -47,22 +47,18 @@ app.use("/v1/api/topic", TEACHING_CENTER_OR_TEACHERS, TopicRouter);
 app.use("/v1/api/pupils", TEACHING_CENTER_OR_TEACHERS, PupilsRouter);
 app.use("/v1/api/localization", TEACHING_CENTER_OR_TEACHERS, LocalizationRouter);
 
-
 // Serve Swagger documentation
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(isVercel ? swaggerOptions : swaggerDocument, {
-    customCssUrl:
-        'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css',
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
+    customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css',
 }));
-
 
 // Handle root route
 app.get("/", (req, res) => {
-    // #swagger.ignore = true
     res.json({message: "Developing this app"});
 });
 
 mongoose
-    .connect(process.env.MONGO_URL,)
+    .connect(process.env.MONGO_URL)
     .then(() => {
         startServer();
     })
