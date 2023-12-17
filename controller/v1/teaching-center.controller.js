@@ -152,7 +152,6 @@ const teachingCenterUpdateController = async (req, res) => {
         /* #swagger.security = [{
                     "apiKeyAuth": []
                 }] */
-        let bot;
 
         if (!req.teachingCenterId)
             return res.status(400).json({message: "No no no 😒"});
@@ -172,7 +171,6 @@ const teachingCenterUpdateController = async (req, res) => {
         currentTeachingCenter.address = address;
         currentTeachingCenter.location = location;
         currentTeachingCenter.name = name;
-        currentTeachingCenter.tg_bot = bot?._id;
         await currentTeachingCenter.save();
         res.status(200).json(currentTeachingCenter);
     } catch (error) {
