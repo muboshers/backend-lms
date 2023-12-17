@@ -48,7 +48,7 @@ app.use("/v1/api/pupils", TEACHING_CENTER_OR_TEACHERS, PupilsRouter);
 app.use("/v1/api/localization", TEACHING_CENTER_OR_TEACHERS, LocalizationRouter);
 
 // Serve Swagger documentation
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
     customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css',
 }));
 
