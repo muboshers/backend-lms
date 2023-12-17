@@ -1,11 +1,11 @@
-const {ROLES} = require("../constants");
+const {ROLES} = require("../../constants");
 
-const teacherModel = require("../model/teacher.model");
-const teachingCenterModel = require("../model/teaching-center.model");
+const teacherModel = require("../../model/v1/teacher.model");
+const teachingCenterModel = require("../../model/v1/teaching-center.model");
 
-const {checkPassword} = require("../utils/password");
+const {checkPassword} = require("../../utils/password");
 
-const {generateToken} = require("../utils/token");
+const {generateToken} = require("../../utils/token");
 
 const LoginController = async (req, res) => {
     // #swagger.tags = ['Authentication']

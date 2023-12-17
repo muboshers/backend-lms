@@ -1,6 +1,6 @@
 const {ref, getDownloadURL, uploadBytes} = require("firebase/storage");
-const {storage} = require("../firebase.config");
-const fileModel = require("../model/file.model");
+const {storage} = require("../../firebase.config");
+const fileModel = require("../../model/v1/file.model");
 
 const MultipleFileUploadController = async (req, res) => {
     try {

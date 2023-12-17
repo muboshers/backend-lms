@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
-const {generatePassword} = require("../utils/password");
+const {generatePassword} = require("../../utils/password");
 
-const teachingCenterModel = require("../model/teaching-center.model");
+const teachingCenterModel = require("../../model/v1/teaching-center.model");
 
-const fileModel = require("../model/file.model");
+const fileModel = require("../../model/v1/file.model");
 
-const teacherModel = require("../model/teacher.model");
-const botModel = require("../model/bot.model");
-const newBot = require("../middleware/bot");
+const teacherModel = require("../../model/v1/teacher.model");
+const botModel = require("../../model/v1/bot.model");
+const newBot = require("../../middleware/bot");
 
 const createTeachingCenterAdminController = async (req, res) => {
     try {

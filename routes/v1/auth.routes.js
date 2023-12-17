@@ -1,12 +1,12 @@
 const {
   LoginController,
   GetMeController,
-} = require("../controller/auth.controller");
-const { TEACHING_CENTER_OR_TEACHERS } = require("../middleware");
+} = require("../../controller/v1/auth.controller");
+const { TEACHING_CENTER_OR_TEACHERS } = require("../../middleware");
 
-const validateRequestBody = require("../middleware/check-request-body");
+const validateRequestBody = require("../../middleware/check-request-body");
 
-const { authSchema } = require("../validation");
+const { authSchema } = require("../../validation");
 
 const AuthRouter = require("express").Router();
 

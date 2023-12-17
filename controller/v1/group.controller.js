@@ -1,15 +1,12 @@
-const groupModel = require("../model/group.model");
-const {ROLES} = require("../constants");
+const groupModel = require("../../model/v1/group.model");
+const {ROLES} = require("../../constants");
 const {default: mongoose} = require("mongoose");
-const fileModel = require("../model/file.model");
-const topicModel = require("../model/topic.model");
+const fileModel = require("../../model/v1/file.model");
+const topicModel = require("../../model/v1/topic.model");
 
 async function topicUpdate(res, topics) {
 
     const topicIds = [];
-
-    console.log(topics)
-
     for await (let topic of topics) {
         const {
             teacher_id,

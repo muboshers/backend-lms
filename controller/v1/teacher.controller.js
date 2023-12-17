@@ -1,9 +1,9 @@
 const {default: mongoose} = require("mongoose");
-const {ROLES} = require("../constants");
-const degreesModel = require("../model/degree.model");
-const teacherModel = require("../model/teacher.model");
-const teachingCenterModel = require("../model/teaching-center.model");
-const {generatePassword} = require("../utils/password");
+const {ROLES} = require("../../constants");
+const degreesModel = require("../../model/v1/degree.model");
+const teacherModel = require("../../model/v1/teacher.model");
+const teachingCenterModel = require("../../model/v1/teaching-center.model");
+const {generatePassword} = require("../../utils/password");
 
 const CreateTeacherController = async (req, res) => {
     try {

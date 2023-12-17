@@ -20,7 +20,7 @@ const {
     PupilsRouter,
     LocalizationRouter,
     TgBotRoutes,
-} = require("./routes");
+} = require("./routes/v1");
 
 const app = express();
 const PORT = process.env.PORT || 3000;

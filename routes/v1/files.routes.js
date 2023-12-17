@@ -4,9 +4,9 @@ const {
   MultipleFileUploadController,
   SingleFileUploadController,
   JSONUploadController,
-} = require("../controller/file-controller");
+} = require("../../controller/v1/file-controller");
 
-const { upload } = require("../firebase.config");
+const { upload } = require("../../firebase.config");
 
 FilesRouter.post(
   "/upload",

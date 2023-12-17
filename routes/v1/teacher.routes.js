@@ -5,7 +5,7 @@ const {
   TeacherUpdateController,
   TeacherDeleteController,
   GetTeachersListController,
-} = require("../controller/teacher.controller");
+} = require("../../controller/v1/teacher.controller");
 
 TeacherRouter.post("/create", CreateTeacherController);
 TeacherRouter.patch("/update/:id", TeacherUpdateController);

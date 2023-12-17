@@ -1,12 +1,17 @@
 const {default: mongoose} = require("mongoose");
-const teacherModel = require("../model/teacher.model");
-const topicModel = require("../model/topic.model");
-const groupModel = require("../model/group.model");
+const teacherModel = require("../../model/v1/teacher.model");
+const topicModel = require("../../model/v1/topic.model");
+const groupModel = require("../../model/v1/group.model");
+const sectionModel = require("../../model/v1/section.model");
+const pupilModel = require("../../model/v1/pupils.model");
 
 const CreateTopicController = async (req, res) => {
     try {
         // #swagger.tags = ['Topic']
         // #swagger.summary = "Topic rcreate endpoint"
+        /* #swagger.security = [{
+             "apiKeyAuth": []
+       }] */
         if (!req.teachingCenterId)
             return res.status(401).json({message: "Invalid credintials"});
 
@@ -61,6 +66,9 @@ const UpdateTopicController = async (req, res) => {
     try {
         // #swagger.tags = ['Topic']
         // #swagger.summary = "Topic update endpoint"
+        /* #swagger.security = [{
+             "apiKeyAuth": []
+       }] */
         if (!req.teachingCenterId)
             return res.status(401).json({message: "Invalid credintials"});
 
@@ -112,6 +120,9 @@ const DeleteTopicController = async (req, res) => {
     try {
         // #swagger.tags = ['Topic']
         // #swagger.summary = "Topic delete endpoint"
+        /* #swagger.security = [{
+             "apiKeyAuth": []
+       }] */
         if (!req.teachingCenterId)
             return res.status(401).json({message: "Invalid credintials"});
 
@@ -148,7 +159,9 @@ const GetTopicListByTeacherIdController = async (req, res) => {
     try {
         // #swagger.tags = ['Topic']
         // #swagger.summary = "Get Topic list by Teacher id"
-
+        /* #swagger.security = [{
+                     "apiKeyAuth": []
+         }] */
         const {teacher_id} = req.params;
 
         if (!req.teachingCenterId || !mongoose.isValidObjectId(teacher_id))
@@ -210,9 +223,115 @@ const GetTopicListByTeacherIdController = async (req, res) => {
     }
 };
 
+const CreateSectionToTopic = async (req, res) => {
+    try {
+
+        // #swagger.tags = ['Topic']
+        // #swagger.summary = "Create section for topic"
+        /* #swagger.security = [{
+             "apiKeyAuth": []
+       }] */
+        const {topicId} = req.params;
+
+        const {name} = req.body;
+
+        if (!req.teachingCenterId)
+            return res.status(404).json({message: "Invalid teaching center id"})
+
+        if (!mongoose.isValidObjectId(topicId))
+            return res.status(404).json({message: "Invalid topic id"})
+
+        let currentTopic = await topicModel.findById(topicId).populate({
+            path: "teacher_id",
+            match: {
+                is_deleted: {
+                    $ne: true,
+                },
+            },
+        })
+
+        let existSectionName = await sectionModel.findOne({name})
+        if (currentTopic?.is_deleted)
+            return res.status(400).json({message: "This topic removed"})
+
+        if (!currentTopic.teacher_id || currentTopic.teacher_id.is_deleted)
+            return res.status(400).json({message: "Please restore teacher or create another teacher"})
+
+        if (existSectionName && currentTopic?.sections.includes(existSectionName._id))
+            return res.status(400).json({message: "Please use another name this name already use"})
+
+        const section = await sectionModel.create({
+            name,
+            teacher_id: currentTopic.teacher_id._id
+        })
+        currentTopic.sections.unshift(section._id)
+        await currentTopic.save()
+        res.status(200).json({message: "Section create successfully"})
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message});
+    }
+}
+
+const GetTopicSectionsByTopicId = async (req, res) => {
+    try {
+        // #swagger.tags = ['Topic']
+        // #swagger.summary = "Get topic sections by topic id"
+        /* #swagger.security = [{
+             "apiKeyAuth": []
+       }] */
+
+        if (!req.teachingCenterId)
+            return res.status(404).json({message: "Invalid teaching center id"})
+
+        const {topicId} = req.params;
+
+        const {page = 1, limit = 10, search = ""} = req.query
+
+        const skip = (page - 1) * limit;
+
+        if (!mongoose.isValidObjectId(topicId))
+            return res.status(400).json({message: 'Invalid topic id'})
+
+        const currentTopic = await topicModel.findById(topicId);
+
+        if (currentTopic.is_deleted)
+            return res.status(400).json({message: "This topic was deleted"})
+
+        let query = sectionModel.find({
+            _id: {$in: currentTopic.sections},
+            is_deleted: false,
+        })
+
+        if (search) {
+            query = query
+                .where("is_deleted")
+                .equals(false)
+                .where("name")
+                .regex(new RegExp(search, "i"))
+        }
+
+
+        const sectionList = await query.skip(skip).limit(limit).exec();
+        const totalCount = await sectionModel.countDocuments(query.getFilter());
+
+        res.status(200).json({
+            totalCount,
+            sectionList,
+            totalPages: Math.ceil(totalCount / limit),
+            currentPage: page,
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message});
+    }
+}
+
 module.exports = {
     CreateTopicController,
     UpdateTopicController,
     DeleteTopicController,
     GetTopicListByTeacherIdController,
+    CreateSectionToTopic,
+    GetTopicSectionsByTopicId
 };

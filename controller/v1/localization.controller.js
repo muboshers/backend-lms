@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const localizationModel = require("../model/localization.model");
+const localizationModel = require("../../model/v1/localization.model");
 
 const CreateLocalization = async (req, res) => {
     try {

@@ -4,10 +4,10 @@ const {
   DeleteGroupController,
   GetGroupListController,
   GetGroupByIdController,
-} = require("../controller/group.controller");
+} = require("../../controller/v1/group.controller");
 
-const validateRequestBody = require("../middleware/check-request-body");
-const { groupSchema } = require("../validation");
+const validateRequestBody = require("../../middleware/check-request-body");
+const { groupSchema } = require("../../validation");
 
 const GroupRouter = require("express").Router();
 

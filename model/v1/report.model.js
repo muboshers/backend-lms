@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const { REPORT_STATUS, REPORT_TYPE } = require("../constants");
+const { REPORT_STATUS, REPORT_TYPE } = require("../../constants");
 
 const pupilSchema = mongoose.Schema(
   {

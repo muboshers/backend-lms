@@ -6,14 +6,14 @@ const {
   GetByIdOrMeTeachingCenterController,
   teachingCenterUpdateController,
   UpdateTeachingCenterTgBotController,
-} = require("../controller/teaching-center.controller");
+} = require("../../controller/v1/teaching-center.controller");
 
-const { validateRequestBody } = require("../middleware");
+const { validateRequestBody } = require("../../middleware");
 
 const {
   createTeachingCenterAdminSchema,
   updateTeachingCenterSchema,
-} = require("../validation");
+} = require("../../validation");
 
 const TeachingCentersRouter = require("express").Router();
 

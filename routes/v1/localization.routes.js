@@ -3,7 +3,7 @@ const {
   CreateLocalization,
   GetLocalization,
   GetTeachingCenterLanguages,
-} = require("../controller/localization.controller");
+} = require("../../controller/v1/localization.controller");
 
 LocalizationRouter.post("/create", CreateLocalization);
 LocalizationRouter.get("/get", GetLocalization);

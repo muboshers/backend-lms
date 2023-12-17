@@ -1,7 +1,7 @@
 const {default: mongoose} = require("mongoose");
-const pupilModel = require("../model/pupils.model");
-const topicModel = require("../model/topic.model");
-const teachingCenterModel = require("../model/teaching-center.model");
+const pupilModel = require("../../model/v1/pupils.model");
+const topicModel = require("../../model/v1/topic.model");
+const teachingCenterModel = require("../../model/v1/teaching-center.model");
 
 const CreatePupilsController = async (req, res) => {
     try {
@@ -186,7 +186,10 @@ const GetPupilsByTopicId = async (req, res) => {
         if (!mongoose.isValidObjectId(topicId))
             return res.status(404).json({message: "Invalid topic id"})
 
-        const currentTopic = await topicModel.findById(topicId)
+        const currentTopic = await topicModel.findById(topicId).populate({
+            path: 'teacher_id',
+            select: ['name']
+        })
 
         if (!currentTopic || currentTopic.is_deleted)
             return res.status(404).json({message: "Topic not exist"})
@@ -212,6 +215,7 @@ const GetPupilsByTopicId = async (req, res) => {
             totalPages: Math.ceil(count / limit),
             currentPage: page,
             totalCount: count,
+            topic: currentTopic,
         });
     } catch (error) {
         console.log(error);

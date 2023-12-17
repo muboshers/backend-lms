@@ -3,7 +3,7 @@ const {
   UpdatePupilsController,
   GetPupilsListPupilsController,
   DeletePupilsController, GetPupilsByTopicId,
-} = require("../controller/pupils.controller");
+} = require("../../controller/v1/pupils.controller");
 
 const PupilsRouter = require("express").Router();
 

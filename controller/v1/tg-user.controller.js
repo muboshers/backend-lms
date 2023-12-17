@@ -1,7 +1,7 @@
 const TelegramBot = require("node-telegram-bot-api");
-const botModel = require("../model/bot.model");
+const botModel = require("../../model/v1/bot.model");
 const {default: axios} = require("axios");
-const tgUserModel = require("../model/tg_user.model");
+const tgUserModel = require("../../model/v1/tg_user.model");
 
 const getBot = (token) => new TelegramBot(token);
 
