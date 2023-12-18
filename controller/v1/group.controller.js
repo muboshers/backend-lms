@@ -40,7 +40,6 @@ async function topicUpdate(res, topics) {
                 percentage,
                 week_days,
                 start_date,
-                week_days,
                 during_month,
                 time_of_day,
             });

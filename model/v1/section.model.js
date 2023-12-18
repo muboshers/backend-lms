@@ -3,12 +3,6 @@ const mongoose = require("mongoose");
 const sectionSchema = mongoose.Schema(
     {
         name: String,
-        teacher_id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "teachers",
-            default: "",
-            required: true,
-        },
         reports: {
             type: [mongoose.Schema.Types.ObjectId],
             ref: "reports",

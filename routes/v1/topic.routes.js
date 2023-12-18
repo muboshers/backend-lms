@@ -4,10 +4,11 @@ const {
     CreateTopicController,
     UpdateTopicController,
     DeleteTopicController,
-    GetTopicListByTeacherIdController, CreateSectionToTopic, GetTopicSectionsByTopicId,
+    GetTopicListByTeacherIdController, CreateSectionToTopic, GetTopicSectionsByTopicId, UpdateSectionInTopic,
+    DeleteSectionInTopic,
 } = require("../../controller/v1/topics.controller");
 const {validateRequestBody} = require("../../middleware");
-const {topicSchema} = require("../../validation");
+const {topicSchema, updateSection} = require("../../validation");
 
 TopicRouter.post(
     "/create",
@@ -21,5 +22,9 @@ TopicRouter.get(
     GetTopicListByTeacherIdController
 );
 TopicRouter.post("/create-section/:topicId", CreateSectionToTopic);
+TopicRouter.patch("/update-section/:section_id",
+    validateRequestBody(updateSection),
+    UpdateSectionInTopic);
 TopicRouter.get("/get-section/:topicId", GetTopicSectionsByTopicId);
+TopicRouter.delete("/delete-section/:section_id", DeleteSectionInTopic);
 module.exports = TopicRouter;

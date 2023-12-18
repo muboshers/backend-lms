@@ -5,7 +5,7 @@ const {
   updateTeachingCenterAdminSchema,
   updateTeachingCenterSchema,
 } = require("./teaching-center.validation");
-const { topicSchema } = require("./topic.validation");
+const { topicSchema,updateSection } = require("./topic.validation");
 
 module.exports = {
   createTeachingCenterAdminSchema,
@@ -14,4 +14,5 @@ module.exports = {
   groupSchema,
   topicSchema,
   updateTeachingCenterSchema,
+  updateSection
 };

@@ -262,11 +262,68 @@ const CreateSectionToTopic = async (req, res) => {
 
         const section = await sectionModel.create({
             name,
-            teacher_id: currentTopic.teacher_id._id
         })
         currentTopic.sections.unshift(section._id)
         await currentTopic.save()
         res.status(200).json({message: "Section create successfully"})
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message});
+    }
+}
+
+const UpdateSectionInTopic = async (req, res) => {
+    try {
+        const {section_id} = req.params;
+        // #swagger.tags = ['Topic']
+        // #swagger.summary = "Update section for topic"
+        /* #swagger.security = [{
+             "apiKeyAuth": []
+       }] */
+
+        if (!mongoose.isValidObjectId(section_id))
+            return res.status(400).json({message: 'Invalid section id'})
+
+        let currentSection = await sectionModel.findById(section_id)
+
+        if (!currentSection)
+            return res.status(404).json({message: "Section does not exist"})
+
+        if (currentSection.is_deleted)
+            return res.status(404).json({message: "Section was deleted you can not edit"})
+
+        currentSection.name = req.body.name;
+        await currentSection.save()
+        res.status(200).json({message: "Section update successfully"})
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message});
+    }
+}
+
+
+const DeleteSectionInTopic = async (req, res) => {
+    try {
+        // #swagger.tags = ['Topic']
+        // #swagger.summary = "Delete sections by section id"
+        /* #swagger.security = [{
+             "apiKeyAuth": []
+       }] */
+        const {section_id} = req.params;
+
+        if (!mongoose.isValidObjectId(section_id))
+            return res.status(404).json({message: "Invalid section id"})
+
+        let currentSection = await sectionModel.findById(section_id)
+
+        if (currentSection.is_deleted)
+            res.status(400).json({message: "This section already removed"})
+
+        currentSection.is_deleted = true;
+
+        await currentSection.save()
+
+        res.status(200).json({message: "Section successfully deleted"})
     } catch (error) {
         console.log(error);
         res.status(500).json({message: error.message});
@@ -327,11 +384,14 @@ const GetTopicSectionsByTopicId = async (req, res) => {
     }
 }
 
+
 module.exports = {
     CreateTopicController,
     UpdateTopicController,
     DeleteTopicController,
     GetTopicListByTeacherIdController,
     CreateSectionToTopic,
-    GetTopicSectionsByTopicId
+    GetTopicSectionsByTopicId,
+    UpdateSectionInTopic,
+    DeleteSectionInTopic
 };
