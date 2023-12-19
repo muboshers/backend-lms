@@ -5,7 +5,6 @@
     "description": "Learning Management easy peasy with EDU_HUB LMS Software Limited",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
   "basePath": "/",
   "tags": [
     {
@@ -1206,6 +1205,54 @@
         ]
       }
     },
+    "/v1/api/topic/update-section/{section_id}": {
+      "patch": {
+        "tags": [
+          "Topic"
+        ],
+        "summary": "Update section for topic",
+        "description": "",
+        "parameters": [
+          {
+            "name": "section_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
     "/v1/api/topic/get-section/{topicId}": {
       "get": {
         "tags": [
@@ -1234,6 +1281,90 @@
             "name": "search",
             "in": "query",
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/api/topic/delete-section/{section_id}": {
+      "delete": {
+        "tags": [
+          "Topic"
+        ],
+        "summary": "Delete sections by section id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "section_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/api/topic/sort-section/{topic_id}": {
+      "patch": {
+        "tags": [
+          "Topic"
+        ],
+        "summary": "Sort section topic",
+        "description": "",
+        "parameters": [
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sections": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {

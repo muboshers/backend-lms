@@ -339,51 +339,91 @@ const GetTopicSectionsByTopicId = async (req, res) => {
        }] */
 
         if (!req.teachingCenterId)
-            return res.status(404).json({message: "Invalid teaching center id"})
+            return res.status(404).json({message: "Invalid teaching center id"});
 
         const {topicId} = req.params;
 
-        const {page = 1, limit = 10, search = ""} = req.query
+        const {page = 1, limit = 10, search = ""} = req.query;
 
         const skip = (page - 1) * limit;
 
         if (!mongoose.isValidObjectId(topicId))
-            return res.status(400).json({message: 'Invalid topic id'})
+            return res.status(400).json({message: 'Invalid topic id'});
 
         const currentTopic = await topicModel.findById(topicId);
 
         if (currentTopic.is_deleted)
-            return res.status(400).json({message: "This topic was deleted"})
+            return res.status(400).json({message: "This topic was deleted"});
 
-        let query = sectionModel.find({
+        const query = sectionModel.find({
             _id: {$in: currentTopic.sections},
             is_deleted: false,
-        })
+        });
 
         if (search) {
-            query = query
-                .where("is_deleted")
-                .equals(false)
-                .where("name")
-                .regex(new RegExp(search, "i"))
+            query
+                .where("is_deleted").equals(false)
+                .where("name").regex(new RegExp(search, "i"));
         }
 
+        let unsortedSectionList = await query.skip(skip).limit(limit).exec();
 
-        const sectionList = await query.skip(skip).limit(limit).exec();
-        const totalCount = await sectionModel.countDocuments(query.getFilter());
+        unsortedSectionList.sort((a, b) => {
+            const indexOfA = currentTopic.sections.indexOf(a._id.toString());
+            const indexOfB = currentTopic.sections.indexOf(b._id.toString());
+            return indexOfA - indexOfB;
+        });
+
+        const totalCount = await sectionModel.countDocuments({
+            _id: {$in: currentTopic.sections},
+            is_deleted: false,
+        });
 
         res.status(200).json({
             totalCount,
-            sectionList,
+            sectionList: unsortedSectionList,
             totalPages: Math.ceil(totalCount / limit),
             currentPage: page,
-        })
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message});
+    }
+};
+
+
+const SortTopicSectionByTopicId = async (req, res) => {
+    try {
+        // #swagger.tags = ['Topic']
+        // #swagger.summary = "Sort section topic"
+        /* #swagger.security = [{
+             "apiKeyAuth": []
+       }] */
+
+        const {topic_id} = req.params;
+
+        const newSections = req.body.sections;
+
+        if (!req.teachingCenterId)
+            return res.status(400).json({message: "Invalid credentials"})
+
+        if (!mongoose.isValidObjectId(topic_id))
+            return res.status(400).json({message: "Invalid topic id"})
+
+        let currentTopic = await topicModel.findById(topic_id)
+
+        if (currentTopic.is_deleted)
+            res.status(404).json({message: "This topic already removed"})
+
+        currentTopic.sections = newSections;
+        await currentTopic.save()
+        res.status(200).json({message: "Section update successfully"})
+
     } catch (error) {
         console.log(error);
         res.status(500).json({message: error.message});
     }
 }
-
 
 module.exports = {
     CreateTopicController,
@@ -393,5 +433,6 @@ module.exports = {
     CreateSectionToTopic,
     GetTopicSectionsByTopicId,
     UpdateSectionInTopic,
-    DeleteSectionInTopic
+    DeleteSectionInTopic,
+    SortTopicSectionByTopicId
 };
