@@ -359,6 +359,21 @@ const GetTopicSectionsByTopicId = async (req, res) => {
         const query = sectionModel.find({
             _id: {$in: currentTopic.sections},
             is_deleted: false,
+        }).populate({
+            path: 'reports',
+            match: {
+                is_deleted: {
+                    $ne: true,
+                },
+            },
+            populate: {
+                path: "pupil_id",
+                match: {
+                    is_deleted: {
+                        $ne: true,
+                    },
+                },
+            }
         });
 
         if (search) {
@@ -457,7 +472,8 @@ const CreateReportToSection = async (req, res) => {
                 $gte: date,
                 $lt: nextDay
             },
-            pupil_id
+            pupil_id,
+            is_deleted: false,
         });
 
 

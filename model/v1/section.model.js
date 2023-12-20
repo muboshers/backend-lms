@@ -5,7 +5,7 @@ const sectionSchema = mongoose.Schema(
         name: String,
         reports: {
             type: [mongoose.Schema.Types.ObjectId],
-            ref: "reports",
+            ref: "report",
             default: [],
         },
         is_deleted: {
