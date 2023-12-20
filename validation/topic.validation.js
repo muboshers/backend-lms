@@ -20,6 +20,7 @@ const updateSection = yup.object({
     }),
 });
 
+
 module.exports = {
     topicSchema,
     updateSection

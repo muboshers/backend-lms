@@ -949,7 +949,7 @@
         "tags": [
           "Topic"
         ],
-        "summary": "Topic rcreate endpoint",
+        "summary": "Topic create endpoint",
         "description": "",
         "parameters": [
           {
@@ -1376,6 +1376,57 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/api/topic/add-report-section/{secion_id}": {
+      "patch": {
+        "tags": [
+          "Topic"
+        ],
+        "summary": "Create report for section",
+        "description": "",
+        "parameters": [
+          {
+            "name": "secion_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "any"
+                },
+                "type": {
+                  "example": "any"
+                },
+                "pupil_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"

@@ -4,11 +4,12 @@ const topicModel = require("../../model/v1/topic.model");
 const groupModel = require("../../model/v1/group.model");
 const sectionModel = require("../../model/v1/section.model");
 const pupilModel = require("../../model/v1/pupils.model");
+const reportModel = require("../../model/v1/report.model");
 
 const CreateTopicController = async (req, res) => {
     try {
         // #swagger.tags = ['Topic']
-        // #swagger.summary = "Topic rcreate endpoint"
+        // #swagger.summary = "Topic create endpoint"
         /* #swagger.security = [{
              "apiKeyAuth": []
        }] */
@@ -263,7 +264,7 @@ const CreateSectionToTopic = async (req, res) => {
         const section = await sectionModel.create({
             name,
         })
-        currentTopic.sections.unshift(section._id)
+        currentTopic.sections.push(section._id)
         await currentTopic.save()
         res.status(200).json({message: "Section create successfully"})
     } catch (error) {
@@ -425,6 +426,64 @@ const SortTopicSectionByTopicId = async (req, res) => {
     }
 }
 
+const CreateReportToSection = async (req, res) => {
+    try {
+
+        // #swagger.tags = ['Topic']
+        // #swagger.summary = "Create report for section"
+        /* #swagger.security = [{
+             "apiKeyAuth": []
+       }] */
+
+
+        const {section_id} = req.params;
+
+        if (!mongoose.isValidObjectId(section_id))
+            return res.status(400).json({message: "Invalid section id"})
+
+        let currentSection = await sectionModel.findById(section_id)
+
+        const {message, type, pupil_id} = req.body
+
+        const date = new Date()
+
+        date.setHours(0, 0, 0, 0);
+
+        const nextDay = new Date(date);
+        nextDay.setDate(date.getDate() + 1);
+
+        const isExist = await reportModel.findOne({
+            createdAt: {
+                $gte: date,
+                $lt: nextDay
+            },
+            pupil_id
+        });
+
+
+        if (isExist)
+            return res.status(400).json({message: "Report already exist"})
+
+        const report = await reportModel.create({
+            message,
+            type,
+            pupil_id
+        })
+
+
+        currentSection.reports.push(report._id)
+
+        await currentSection.save()
+
+        res.status(200).json({message: "Report add successfully"})
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message});
+    }
+}
+
+
 module.exports = {
     CreateTopicController,
     UpdateTopicController,
@@ -434,5 +493,6 @@ module.exports = {
     GetTopicSectionsByTopicId,
     UpdateSectionInTopic,
     DeleteSectionInTopic,
-    SortTopicSectionByTopicId
+    SortTopicSectionByTopicId,
+    CreateReportToSection
 };

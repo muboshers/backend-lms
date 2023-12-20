@@ -5,7 +5,7 @@ const {
     UpdateTopicController,
     DeleteTopicController,
     GetTopicListByTeacherIdController, CreateSectionToTopic, GetTopicSectionsByTopicId, UpdateSectionInTopic,
-    DeleteSectionInTopic, SortTopicSectionByTopicId,
+    DeleteSectionInTopic, SortTopicSectionByTopicId, CreateReportToSection,
 } = require("../../controller/v1/topics.controller");
 const {validateRequestBody} = require("../../middleware");
 const {topicSchema, updateSection} = require("../../validation");
@@ -28,4 +28,5 @@ TopicRouter.patch("/update-section/:section_id",
 TopicRouter.get("/get-section/:topicId", GetTopicSectionsByTopicId);
 TopicRouter.delete("/delete-section/:section_id", DeleteSectionInTopic);
 TopicRouter.patch('/sort-section/:topic_id',SortTopicSectionByTopicId)
+TopicRouter.patch('/add-report-section/:section_id',CreateReportToSection)
 module.exports = TopicRouter;
